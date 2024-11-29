@@ -1,13 +1,13 @@
 {
   "name": "SprotifyXMusic",
-  "description": "Telegram Group Calls streaming bot with some useful features, written in Python with Pyrogram and Py-Tgcalls. Supporting platforms like Youtube, Spotify, Resso, AppleMusic, Soundcloud and M3u8 Links.",
-  "logo": "",
+  "description": "Innovative Telegram bot powered by Python with Pyrogram and Py-Tgcalls. Lets you stream music, videos, and even live broadcasts in group calls from various sources seamlessly.",
+  "logo": "https://github.com/Mister-Man7/SprotifyXMusic/blob/main/assets/logo.jpg",
   "keywords": [
     "python3",
     "telegram",
     "bot",
-    "Winx",
-    "WinxMusicBot",
+    "Sprotify",
+    "SprotifyXMusic",
     "telegram-bot",
     "pyrogram"
   ],
@@ -70,12 +70,12 @@
     },
     "UPSTREAM_REPO": {
       "description": "If you dont know this, Leave as it is",
-      "value": "https://github.com/gabrielmaialva33/winx-music-bot",
+      "value": "https://github.com/Mister-Man7/SprotifyXMusic",
       "required": true
     },
     "UPSTREAM_BRANCH": {
       "description": "Upstream Repo's Branch Name",
-      "value": "master",
+      "value": "main",
       "required": true
     }
   },
