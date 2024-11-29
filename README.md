@@ -1,85 +1,48 @@
+*LOGIN TO USE DIRECT TEMPLATES*
+<h1 align="center" id="title">SprotifyXMusic</h1>
 
-
-<table style="width:100%" align="center" border="0">
-  <tr>
-    <td><img src="./assets/start_img_2.png" alt="TypeScript" width="300"></td>
-    <td><h1>🎵 Ｗｉｎｘ Ｂｏｔ 🎶</h1></td>
-  </tr>
-</table>
-
-[Winx Music Bot](https://github.com/gabrielmaialva33/winx-music-bot) is a powerful music and video bot for Telegram, built with Python using Pyrogram and Py-Tgcalls. With it, you can stream music, videos, and even live broadcasts in group calls from various sources. 🚀
+![SprotifyXMusic](https://socialify.git.ci/Mister-Man7/SprotifyXMusic/image?description=1&descriptionEditable=Coolest%20Telegram%20Music%20and%20Video%20Player%20Bot&font=KoHo&forks=1&issues=1&language=1&name=1&owner=1&pattern=Solid&pulls=1&stargazers=1&theme=Auto)
 
 ---
+[SprotifyXMusic](https://github.com/Mister-Man7/SprotifyXMusic) is an innovative Telegram bot powered by Python with Pyrogram and Py-Tgcalls. Lets you stream music, videos, and even live broadcasts in group calls from various sources seamlessly.
 
-## 🚀 Deploy on Heroku
+## 🗒️Pre-requisite
+- [x] [Python](https://www.python.org/) Environment (use v3.9 or higher)
+- [x] [Telegram API](https://my.telegram.org) Credentials
+- [x] [Pyrogram](https://docs.pyrogram.org/index) and [Py-Tgcalls](https://tgcalls.org/)
+- [x] [MongoDB](https://www.mongodb.com/) Database
+- [x] VPS of course
 
-Easily deploy **Winx Music Bot** on Heroku:
+## ⚙️ Configuration
+Follow this [link](https://github.com/Mister-Man7/SprotifyXMusic/blob/main/config/README.md) for see the best configurations
 
-<a href="https://dashboard.heroku.com/new?template=https://github.com/gabrielmaialva33/winx-music-bot"><img src="https://img.shields.io/badge/Deploy%20To%20Heroku-red?style=for-the-badge&logo=heroku" width="200"/></a>
+## 🚀 VPS Deployment (recommended)
 
----
-## 🖇️ VPS Deployment Guide
+[Fork](https://github.com/Mister-Man7/SprotifyXMusic/fork) then clone this repository:
 
-1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/gabrielmaialva33/winx-music-bot && cd winx-music-bot
-   ```
+```bash
+git clone https://github.com/Mister-Man7/SprotifyXMusic/fork && cd SprotifyXMusic
+```
+Run the setup:
+```bash
+bash setup
+```
+Install screen to keep your bot running after closing the terminal:
+```bash
+sudo apt install tmux && tmux
+```
+Run your f*cking bot:
+```bash
+python3 -m WinxMusic
+```
+Detach from the screen session:
+```
+CTRL + A, then D
+```
 
-2. **Run the setup**
-   ```bash
-   bash setup
-   ```
+## Support
 
-3. **Install tmux**
-   To keep your bot running after closing the terminal:
-   ```bash
-   sudo apt install tmux && tmux
-   ```
+Need help? Here’s how you can get support:
+![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white?link=http://t.me/EasyWinter)
 
-4. **Run the Bot**
-   ```bash
-   python3 -m WinxMusic
-   ```
-
-5.  **Detach from the tmux session**
-   Press `Ctrl+b`, then `d` to exit the tmux session without stopping the bot.
-
-___
-
-# 🎶 Winx Music Bot Configuration
-
-For detailed configuration instructions for Winx Music Bot, refer to [this guide](https://github.com/gabrielmaialva33/winx-music-bot/blob/master/config/README.md).
-
----
-
-# 🏷 Need Support or Assistance?
-
-If you need help or have any questions, feel free to reach out via the following channels:
-
-- [GitHub Issues](https://github.com/gabrielmaialva33/winx-music-bot/issues/new?assignees=&labels=question&title=support%3A+&body=%23+Support+Question): Open a support issue on GitHub.
-- [Telegram Profile](https://t.me/mrootx): Contact the maintainer directly.
-- [Telegram Support Group](https://t.me/winxmusicsupport): Join our support group for live assistance.
-
----
-
-# ❣️ Support the Project
-
-If you enjoyed **Winx Music Bot** and want to support its development, consider:
-
-- ⭐ [Starring the repository](https://github.com/gabrielmaialva33/winx-music-bot) on GitHub.
-- 🍴 [Forking the repository](https://github.com/gabrielmaialva33/winx-music-bot) and contributing improvements.
-- 📝 Sharing your experience with tutorials or articles on [Dev.to](https://dev.to/), [Medium](https://medium.com/), or your personal blog.
-
-Together, we can make **Winx Music Bot** even better!
-
----
-
-## Contributors
-
-[![Contributors](https://contrib.nn.ci/api?repo=gabrielmaialva33/winx-music-bot&radius=100)](https://github.com/gabrielmaialva33/winx-music-bot/graphs/contributors)
-
----
-
-### Special Thanks
-
-A huge thank you to [Team Yukki](https://github.com/TeamYukki) for their inspiring work on [YukkiMusicBot](https://github.com/TeamYukki/YukkiMusicBot). Their contributions have been invaluable!
+We’re here to assist you!
