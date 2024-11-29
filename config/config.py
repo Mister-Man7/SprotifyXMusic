@@ -30,16 +30,16 @@ CLEANMODE_DELETE_MINS = int(
 
 # Custom max audio(music) duration for voice chat. set DURATION_LIMIT in variables with your own time(mins), Default to 60 mins.
 DURATION_LIMIT_MIN = int(
-    getenv("DURATION_LIMIT", "300")
+    getenv("DURATION_LIMIT", "3200")
 )  # Remember to give value in Minutes
 
 # Enable / Disable external plugins
-EXTRA_PLUGINS = getenv("EXTRA_PLUGINS", "False")
+EXTRA_PLUGINS = getenv("EXTRA_PLUGINS", "True")
 
 # Fill True if you want to load extra plugins from external repo
 EXTRA_PLUGINS_REPO = getenv(
     "EXTRA_PLUGINS_REPO",
-    "https://github.com/gabrielmaialva33/winx-extra-plugin",
+    "https://github.com/Mister-Man7/SprotifyXMusic-Plugin",
 )
 
 # Fill here the external plugins repo where plugins that you want to load
@@ -49,7 +49,7 @@ EXTRA_PLUGINS_FOLDER = getenv("EXTRA_PLUGINS_FOLDER", "plugins")
 
 # Duration Limit for downloading Songs in MP3 or MP4 format from bot
 SONG_DOWNLOAD_DURATION = int(
-    getenv("SONG_DOWNLOAD_DURATION_LIMIT", "90")
+    getenv("SONG_DOWNLOAD_DURATION_LIMIT", "900")
 )  # Remember to give value in Minutes
 
 # You'll need a Private Group ID for this.
@@ -57,14 +57,14 @@ LOG_GROUP_ID = int(getenv("LOG_GROUP_ID", ""))
 
 # Your User ID.
 OWNER_ID = list(
-    map(int, getenv("OWNER_ID", "1307574219").split())
+    map(int, getenv("OWNER_ID", "1854441420").split())
 )  # Input type must be interger
 
 # make your bots privacy from telegra.ph and put your url here
 
 PRIVACY_LINK = getenv(
     "PRIVACY_LINK",
-    "https://telegra.ph/Pol%C3%ADtica-de-Privacidade-para-WinxMusic-10-24",
+    "https://telegra.ph/Privacy-Policy-for-SprotifyXMusic-11-29",
 )
 
 # Get it from http://dashboard.heroku.com/account
@@ -75,19 +75,19 @@ HEROKU_APP_NAME = getenv("HEROKU_APP_NAME")
 
 # For customized or modified Repository
 UPSTREAM_REPO = getenv(
-    "UPSTREAM_REPO", "https://github.com/gabrielmaialva33/winx-music-bot"
+    "UPSTREAM_REPO", "https://github.com/Mister-Man7/SprotifyXMusic"
 )
-UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "master")
+UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "main")
 
 # GIT TOKEN ( if your edited repo is private)
 GIT_TOKEN = getenv("GIT_TOKEN", "")
 
 # Only  Links formats are  accepted for this Var value.
 SUPPORT_CHANNEL = getenv(
-    "SUPPORT_CHANNEL", "https://t.me/canaiswinx"
+    "SUPPORT_CHANNEL", "https://t.me/SprotifyNewws"
 )  # Example:- https://t.me/cinewinx
 SUPPORT_GROUP = getenv(
-    "SUPPORT_GROUP", "https://t.me/+QuH3Xab1-5xiMzZh"
+    "SUPPORT_GROUP", "https://t.me/datarantinggi"
 )  # Example:- https://t.me/cinewinxcoments
 
 # Set it in True if you want to leave your assistant after a certain amount of time. [Set time via AUTO_LEAVE_ASSISTANT_TIME]
@@ -109,7 +109,7 @@ TELEGRAM_DOWNLOAD_EDIT_SLEEP = int(getenv("TELEGRAM_EDIT_SLEEP", "5"))
 
 # Your Github Repo.. Will be shown on /start Command
 GITHUB_REPO = getenv(
-    "GITHUB_REPO", "https://github.com/gabrielmaialva33/winx-music-bot"
+    "GITHUB_REPO", "https://github.com/Mister-Man7/SprotifyXMusic"
 )
 
 # Spotify Client.. Get it from https://developer.spotify.com/dashboard
@@ -149,12 +149,6 @@ STRING_SESSIONS = list(map(str.strip, getenv("STRING_SESSIONS", None).split(",")
 
 # TOKEN_DATA = getenv("TOKEN_DATA", None)
 
-# __        __     _ _  __  __ ___  __  __ _    _  ___ _    _____ _____
-# \ \      / /__ _| | |/ _|/ _|_ _||  \/  | |  | |__ \ |  | |_   _|_   _|
-#  \ \ /\ / / _ \ | | | |_| |_| | || |\/| | |  | | / / |  | | | |   | |
-#   \ V  V /  __/ | | |  _|  _| | || |  | | |__| ||_|  |__| |_| |_  |_|
-#    \_/\_/ \___|_|_|_|_| |_| |_| |_|  |_|\____/ |____/\_____/|_____|
-
 
 ### DONT TOUCH or EDIT codes after this line
 BANNED_USERS = filters.user()
@@ -177,18 +171,18 @@ autoclean = []
 
 START_IMG_URL = getenv(
     "START_IMG_URL",
-    "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/start_img_2.png",
+    "https://graph.org/file/afe0bf9e6b4fede3afc0e.jpg",
     # This is the file id of the photo you can also put the url of photo
 )
 
 PING_IMG_URL = getenv(
     "PING_IMG_URL",
-    "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/ping_img.png",
+    "https://graph.org/file/8f6de108a54be6506b693.jpg",
 )
 
 PLAYLIST_IMG_URL = getenv(
     "PLAYLIST_IMG_URL",
-    "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/playlist_img.png",
+    "https://graph.org/file/94074fd8f348807833802.jpg",
 )
 
 GLOBAL_IMG_URL = getenv(
@@ -203,42 +197,42 @@ STATS_IMG_URL = getenv(
 
 TELEGRAM_AUDIO_URL = getenv(
     "TELEGRAM_AUDIO_URL",
-    "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/telegram_audio_img.png",
+    "https://graph.org/file/f626eb194b025672eea28.jpg",
 )
 
 TELEGRAM_VIDEO_URL = getenv(
     "TELEGRAM_VIDEO_URL",
-    "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/telegram_video_img.png",
+    "https://graph.org/file/f6e977e0046a5b8d17904.jpg",
 )
 
 STREAM_IMG_URL = getenv(
     "STREAM_IMG_URL",
-    "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/stream_img.png",
+    "https://graph.org/file/7247dcb0ae280ba3b8492.jpg",
 )
 
 SOUNCLOUD_IMG_URL = getenv(
     "SOUNCLOUD_IMG_URL",
-    "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/soundcloud_img.png",
+    "https://graph.org/file/199a1bd803d3e8c8d0e43.jpg",
 )
 
 YOUTUBE_IMG_URL = getenv(
     "YOUTUBE_IMG_URL",
-    "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/youtube_img.png",
+    "https://graph.org/file/d902a638d7bcb6653d36f.jpg",
 )
 
 SPOTIFY_ARTIST_IMG_URL = getenv(
     "SPOTIFY_ARTIST_IMG_URL",
-    "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/spotify_artist_img.png",
+    "https://graph.org/file/dc9eb455f86f845f400f8.jpg",
 )
 
 SPOTIFY_ALBUM_IMG_URL = getenv(
     "SPOTIFY_ALBUM_IMG_URL",
-    "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/spotify_album_img.png",
+    "https://graph.org/file/aacfa8762c016077b7ee9.jpg",
 )
 
 SPOTIFY_PLAYLIST_IMG_URL = getenv(
     "SPOTIFY_PLAYLIST_IMG_URL",
-    "https://raw.githubusercontent.com/gabrielmaialva33/winx-music-bot/refs/heads/master/assets/spotify_playlist_img.png",
+    "https://graph.org/file/480dbdc265670e833d763.jpg",
 )
 
 
