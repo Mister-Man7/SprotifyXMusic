@@ -1,3 +1,4 @@
+*LOGIN TO USE DIRECT TEMPLATES*
 <h1 align="center" id="title">SprotifyXMusic</h1>
 
 ![SprotifyXMusic](https://socialify.git.ci/Mister-Man7/SprotifyXMusic/image?description=1&descriptionEditable=Coolest%20Telegram%20Music%20and%20Video%20Player%20Bot&font=KoHo&forks=1&issues=1&language=1&name=1&owner=1&pattern=Solid&pulls=1&stargazers=1&theme=Auto)
@@ -42,6 +43,13 @@ CTRL + A, then D
 ## Support
 
 Need help? Here’s how you can get support:
-![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram)
 
-We’re here to assist you!
+[![Telegram](https://img.shields.io/badge/-Update%20CHANNEL-blue?style=for-the-badge&logo=telegram&color=white)](https://t.me/SprotifyNews)
+[![Telegram](https://img.shields.io/badge/-DISCUSSION-blue?style=for-the-badge&logo=telegram&color=white)](https://t.me/datarantinggi)
+
+## ❤️Acknowledgement
+
+- [x] [TeamYukki](https://github.com/TeamYukki)
+- [x] [TeamUltroid](https://github.com/TeamUltroid)
+- [x] [WinxMusic](https://github.com/gabrielmaialva33/winx-music-bo)
+---
