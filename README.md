@@ -1,4 +1,3 @@
-*LOGIN TO USE DIRECT TEMPLATES*
 <h1 align="center" id="title">SprotifyXMusic</h1>
 
 ![SprotifyXMusic](https://socialify.git.ci/Mister-Man7/SprotifyXMusic/image?description=1&descriptionEditable=Coolest%20Telegram%20Music%20and%20Video%20Player%20Bot&font=KoHo&forks=1&issues=1&language=1&name=1&owner=1&pattern=Solid&pulls=1&stargazers=1&theme=Auto)
