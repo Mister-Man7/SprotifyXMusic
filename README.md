@@ -42,6 +42,6 @@ CTRL + A, then D
 ## Support
 
 Need help? Here’s how you can get support:
-![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white?link=http://t.me/EasyWinter)
+![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram)
 
 We’re here to assist you!
