@@ -1,9 +1,9 @@
 .env
-.winx.env
+.sprotify.env
 .cinewinx.env
 .dev.env
 .cache
-Winxlogs.txt
+SprotifyXlogs.txt
 .DS_Store
 *.session
 raw_files/
