@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    return "WinxMusic is running!"
+    return "SprotifyXMusic is running!"
 
 
 log = logging.getLogger("werkzeug")
