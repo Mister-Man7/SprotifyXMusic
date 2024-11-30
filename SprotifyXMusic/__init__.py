@@ -1,4 +1,4 @@
-from SprotifyXMusic.core.bot import WinxBot
+from SprotifyXMusic.core.bot import SprotifyXBot
 from SprotifyXMusic.core.dir import dirr
 from SprotifyXMusic.core.git import git
 from SprotifyXMusic.core.userbot import Userbot
@@ -25,7 +25,7 @@ heroku()
 # Load Sudo Users from DB
 sudo()
 # Bot Client
-app = WinxBot()
+app = SprotifyXBot()
 
 # Assistant Client
 userbot = Userbot()
