@@ -509,4 +509,4 @@ class Call:
                 await self.change_stream(client, update.chat_id)
 
 
-Winx = Call()
+Sprotify = Call()
