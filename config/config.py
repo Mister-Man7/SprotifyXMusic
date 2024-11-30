@@ -34,7 +34,7 @@ DURATION_LIMIT_MIN = int(
 )  # Remember to give value in Minutes
 
 # Enable / Disable external plugins
-EXTRA_PLUGINS = getenv("EXTRA_PLUGINS", "True")
+EXTRA_PLUGINS = getenv("EXTRA_PLUGINS", "False")
 
 # Fill True if you want to load extra plugins from external repo
 EXTRA_PLUGINS_REPO = getenv(
