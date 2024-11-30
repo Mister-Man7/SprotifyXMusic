@@ -7,7 +7,7 @@ from pytgcalls.exceptions import NoActiveGroupCall
 import config
 from config import BANNED_USERS
 from SprotifyXMusic import HELPABLE, LOGGER, app, userbot
-from SprotifyXMusic.core.call import SprotifyX
+from SprotifyXMusic.core.call import Sprotify
 from SprotifyXMusic.plugins import ALL_MODULES
 from SprotifyXMusic.utils.database import get_banned_users, get_gbanned
 
@@ -40,10 +40,10 @@ async def init():
                 HELPABLE[imported_module.__MODULE__.lower()] = imported_module
     LOGGER("SprotifyXMusic.plugins").info("Successfully Imported All Modules ")
     await userbot.start()
-    await SprotifyX.start()
+    await Sprotify.start()
     LOGGER("SprotifyXMusic").info("Assistant Started Sucessfully")
     try:
-        await SprotifyX.stream_call(
+        await Sprotify.stream_call(
             "http://docs.evostream.com/sample_content/assets/sintel1m720p.mp4"
         )
     except NoActiveGroupCall:
@@ -52,7 +52,7 @@ async def init():
         )
         sys.exit()
 
-    await SprotifyX.decorators()
+    await Sprotify.decorators()
     LOGGER("SprotifyXMusic").info("SprotifyXMusic Started Successfully")
 
     await idle()
