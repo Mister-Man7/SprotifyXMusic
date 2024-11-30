@@ -3,7 +3,7 @@ from pyrogram.types import InlineKeyboardMarkup, Message
 
 import config
 from SprotifyMusic import app, Platform
-from SprotifyMusic.core.call import Winx
+from SprotifyMusic.core.call import Sprotify
 from SprotifyMusic.misc import db
 from SprotifyMusic.utils.database import get_loop
 from SprotifyMusic.utils.decorators import admin_rights_check
@@ -53,7 +53,7 @@ async def skip(_client: Client, message: Message, _, chat_id: int):
                                         ),
                                         disable_web_page_preview=True,
                                     )
-                                    await Winx.stop_stream(chat_id)
+                                    await Sprotify.stop_stream(chat_id)
                                 except Exception:
                                     return
                                 break
@@ -83,7 +83,7 @@ async def skip(_client: Client, message: Message, _, chat_id: int):
                     disable_web_page_preview=True,
                 )
                 try:
-                    return await Winx.stop_stream(chat_id)
+                    return await Sprotify.stop_stream(chat_id)
                 except Exception:
                     return
         except Exception:
@@ -92,7 +92,7 @@ async def skip(_client: Client, message: Message, _, chat_id: int):
                     _["admin_10"].format(message.from_user.first_name),
                     disable_web_page_preview=True,
                 )
-                return await Winx.stop_stream(chat_id)
+                return await Sprotify.stop_stream(chat_id)
             except Exception:
                 return
     queued = check[0]["file"]
@@ -108,7 +108,7 @@ async def skip(_client: Client, message: Message, _, chat_id: int):
         if n == 0:
             return await message.reply_text(_["admin_11"].format(title))
         try:
-            await Winx.skip_stream(chat_id, link, video=status)
+            await Sprotify.skip_stream(chat_id, link, video=status)
         except Exception:
             return await message.reply_text(_["call_7"])
         button = telegram_markup(_, chat_id)
@@ -135,7 +135,7 @@ async def skip(_client: Client, message: Message, _, chat_id: int):
         except Exception:
             return await mystic.edit_text(_["call_7"])
         try:
-            await Winx.skip_stream(chat_id, file_path, video=status)
+            await Sprotify.skip_stream(chat_id, file_path, video=status)
         except Exception:
             return await mystic.edit_text(_["call_7"])
         button = stream_markup(_, videoid, chat_id)
@@ -155,7 +155,7 @@ async def skip(_client: Client, message: Message, _, chat_id: int):
         await mystic.delete()
     elif "index_" in queued:
         try:
-            await Winx.skip_stream(chat_id, videoid, video=status)
+            await Sprotify.skip_stream(chat_id, videoid, video=status)
         except Exception:
             return await message.reply_text(_["call_7"])
         button = telegram_markup(_, chat_id)
@@ -168,7 +168,7 @@ async def skip(_client: Client, message: Message, _, chat_id: int):
         db[chat_id][0]["markup"] = "tg"
     else:
         try:
-            await Winx.skip_stream(chat_id, queued, video=status)
+            await Sprotify.skip_stream(chat_id, queued, video=status)
         except Exception:
             return await message.reply_text(_["call_7"])
         if videoid == "telegram":

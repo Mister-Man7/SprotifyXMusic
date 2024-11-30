@@ -2,7 +2,7 @@ from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 from SprotifyMusic import app
-from SprotifyMusic.core.call import Winx
+from SprotifyMusic.core.call import Sprotify
 from SprotifyMusic.misc import SUDOERS
 from SprotifyMusic.plugins import extra_plugins_enabled
 from SprotifyMusic.utils.database import (
@@ -87,6 +87,6 @@ async def stop_music(cli, message: Message):
             await check[0].get("mystic").delete()
     except Exception:
         pass
-    await Winx.stop_stream(chat_id)
+    await Sprotify.stop_stream(chat_id)
     await set_loop(chat_id, 0)
     await message.reply_text(_["admin_9"].format(message.from_user.mention))

@@ -2,7 +2,7 @@ from pyrogram import filters, Client
 from pyrogram.types import Message
 
 from SprotifyMusic import app, Platform
-from SprotifyMusic.core.call import Winx
+from SprotifyMusic.core.call import Sprotify
 from SprotifyMusic.misc import db
 from SprotifyMusic.utils import admin_rights_check, seconds_to_min
 from config import BANNED_USERS, PREFIXES
@@ -49,7 +49,7 @@ async def seek_comm(_client: Client, message: Message, _, chat_id: int):
         if n == 0:
             return await message.reply_text(_["admin_30"])
     try:
-        await Winx.seek_stream(
+        await Sprotify.seek_stream(
             chat_id,
             file_path,
             seconds_to_min(to_seek),

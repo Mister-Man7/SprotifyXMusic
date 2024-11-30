@@ -2,7 +2,7 @@ from pyrogram import filters, Client
 from pyrogram.types import Message
 
 from SprotifyMusic import app
-from SprotifyMusic.core.call import Winx
+from SprotifyMusic.core.call import Sprotify
 from SprotifyMusic.utils.database import is_muted, mute_off, mute_on
 from SprotifyMusic.utils.decorators import admin_rights_check
 from config import BANNED_USERS, PREFIXES
@@ -20,7 +20,7 @@ async def mute_admin(_client: Client, message: Message, _, chat_id: int):
     if await is_muted(chat_id):
         return await message.reply_text(_["admin_5"], disable_web_page_preview=True)
     await mute_on(chat_id)
-    await Winx.mute_stream(chat_id)
+    await Sprotify.mute_stream(chat_id)
     await message.reply_text(
         _["admin_6"].format(message.from_user.mention), disable_web_page_preview=True
     )
@@ -34,7 +34,7 @@ async def unmute_admin(_client: Client, message: Message, _, chat_id: int):
     if not await is_muted(chat_id):
         return await message.reply_text(_["admin_7"], disable_web_page_preview=True)
     await mute_off(chat_id)
-    await Winx.unmute_stream(chat_id)
+    await Sprotify.unmute_stream(chat_id)
     await message.reply_text(
         _["admin_8"].format(message.from_user.mention), disable_web_page_preview=True
     )

@@ -5,7 +5,7 @@ from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, InputMediaPhoto
 
 import config
 from SprotifyMusic import app, Platform
-from SprotifyMusic.core.call import Winx
+from SprotifyMusic.core.call import Sprotify
 from SprotifyMusic.misc import SUDOERS, db
 from SprotifyMusic.utils import time_to_seconds
 from SprotifyMusic.utils.channelplay import get_channeplay_cb
@@ -150,7 +150,7 @@ async def main_markup_(_client: Client, callback_query: CallbackQuery, _):
             return await callback_query.answer(_["admin_1"], show_alert=True)
         await callback_query.answer()
         await music_off(chat_id)
-        await Winx.pause_stream(chat_id)
+        await Sprotify.pause_stream(chat_id)
         await callback_query.message.reply_text(
             _["admin_2"].format(mention), disable_web_page_preview=True
         )
@@ -159,7 +159,7 @@ async def main_markup_(_client: Client, callback_query: CallbackQuery, _):
             return await callback_query.answer(_["admin_3"], show_alert=True)
         await callback_query.answer()
         await music_on(chat_id)
-        await Winx.resume_stream(chat_id)
+        await Sprotify.resume_stream(chat_id)
         await callback_query.message.reply_text(
             _["admin_4"].format(mention), disable_web_page_preview=True
         )
@@ -171,7 +171,7 @@ async def main_markup_(_client: Client, callback_query: CallbackQuery, _):
         except Exception:
             pass
         await callback_query.answer()
-        await Winx.stop_stream(chat_id)
+        await Sprotify.stop_stream(chat_id)
         await set_loop(chat_id, 0)
         await callback_query.message.reply_text(
             _["admin_9"].format(mention), disable_web_page_preview=True
@@ -181,7 +181,7 @@ async def main_markup_(_client: Client, callback_query: CallbackQuery, _):
             return await callback_query.answer(_["admin_5"], show_alert=True)
         await callback_query.answer()
         await mute_on(chat_id)
-        await Winx.mute_stream(chat_id)
+        await Sprotify.mute_stream(chat_id)
         await callback_query.message.reply_text(
             _["admin_6"].format(mention), disable_web_page_preview=True
         )
@@ -190,7 +190,7 @@ async def main_markup_(_client: Client, callback_query: CallbackQuery, _):
             return await callback_query.answer(_["admin_7"], show_alert=True)
         await callback_query.answer()
         await mute_off(chat_id)
-        await Winx.unmute_stream(chat_id)
+        await Sprotify.unmute_stream(chat_id)
         await callback_query.message.reply_text(
             _["admin_8"].format(mention), disable_web_page_preview=True
         )
@@ -234,7 +234,7 @@ async def main_markup_(_client: Client, callback_query: CallbackQuery, _):
                     _["admin_10"].format(mention), disable_web_page_preview=True
                 )
                 try:
-                    return await Winx.stop_stream(chat_id)
+                    return await Sprotify.stop_stream(chat_id)
                 except Exception:
                     return
         except Exception:
@@ -245,7 +245,7 @@ async def main_markup_(_client: Client, callback_query: CallbackQuery, _):
                 await callback_query.message.reply_text(
                     _["admin_10"].format(mention), disable_web_page_preview=True
                 )
-                return await Winx.stop_stream(chat_id)
+                return await Sprotify.stop_stream(chat_id)
             except Exception:
                 return
         await callback_query.answer()
@@ -264,7 +264,7 @@ async def main_markup_(_client: Client, callback_query: CallbackQuery, _):
                     _["admin_11"].format(title)
                 )
             try:
-                await Winx.skip_stream(chat_id, link, video=status)
+                await Sprotify.skip_stream(chat_id, link, video=status)
             except Exception:
                 return await callback_query.message.reply_text(_["call_7"])
             button = telegram_markup(_, chat_id)
@@ -294,7 +294,7 @@ async def main_markup_(_client: Client, callback_query: CallbackQuery, _):
             except Exception:
                 return await mystic.edit_text(_["call_7"])
             try:
-                await Winx.skip_stream(chat_id, file_path, video=status)
+                await Sprotify.skip_stream(chat_id, file_path, video=status)
             except Exception:
                 return await mystic.edit_text(_["call_7"])
             button = stream_markup(_, videoid, chat_id)
@@ -315,7 +315,7 @@ async def main_markup_(_client: Client, callback_query: CallbackQuery, _):
             await mystic.delete()
         elif "index_" in queued:
             try:
-                await Winx.skip_stream(chat_id, videoid, video=status)
+                await Sprotify.skip_stream(chat_id, videoid, video=status)
             except Exception:
                 return await callback_query.message.reply_text(_["call_7"])
             button = telegram_markup(_, chat_id)
@@ -329,7 +329,7 @@ async def main_markup_(_client: Client, callback_query: CallbackQuery, _):
             await callback_query.edit_message_text(txt)
         else:
             try:
-                await Winx.skip_stream(chat_id, queued, video=status)
+                await Sprotify.skip_stream(chat_id, queued, video=status)
             except Exception:
                 return await callback_query.message.reply_text(_["call_7"])
             if videoid == "telegram":
@@ -429,7 +429,7 @@ async def main_markup_(_client: Client, callback_query: CallbackQuery, _):
             if n == 0:
                 return await mystic.edit_text(_["admin_30"])
         try:
-            await Winx.seek_stream(
+            await Sprotify.seek_stream(
                 chat_id,
                 file_path,
                 seconds_to_min(to_seek),
@@ -526,7 +526,7 @@ async def anonymous_check(_client: Client, callback_query: CallbackQuery):
         return
 
 
-@app.on_callback_query(filters.regex("WinxPlaylists") & ~BANNED_USERS)
+@app.on_callback_query(filters.regex("SprotifyPlaylists") & ~BANNED_USERS)
 @language_cb
 async def play_playlists_command(_client: Client, callback_query: CallbackQuery, _):
     callback_data = callback_query.data.strip()
@@ -723,18 +723,18 @@ __MODULE__ = "Admin"
 __HELP__ = f"""
 <b>c significa reprodução em canal</b>
 
-<b>✧ {command("PAUSE_COMMAND")}</b> - Pausar a música que está tocando.
-<b>✧ {command("RESUME_COMMAND")}</b> - Retomar a música pausada.
-<b>✧ {command("MUTE_COMMAND")}</b> - Silenciar a música que está tocando.
-<b>✧ {command("UNMUTE_COMMAND")}</b> - Desmutar a música silenciada.
-<b>✧ {command("SKIP_COMMAND")}</b> - Pular a música que está tocando.
-<b>✧ {command("STOP_COMMAND")}</b> - Parar a música que está tocando.
-<b>✧ {command("SHUFFLE_COMMAND")}</b> - Embaralhar aleatoriamente a playlist/músicas na fila.
-<b>✧ {command("SEEK_COMMAND")}</b> - Avançar a música para um ponto específico.
-<b>✧ {command("SEEK_COMMAND")}</b> - Retroceder a música para um ponto específico.
-<b>✧ {command("REBOOT_COMMAND")}</b> - Reiniciar o bot para o seu chat.
+<b>✧ {command("PAUSE_COMMAND")}</b> - Pause the music that is playing.
+<b>✧ {command("RESUME_COMMAND")}</b> - Resume the paused music.
+<b>✧ {command("MUTE_COMMAND")}</b> - Silence to music you are playing.
+<b>✧ {command("UNMUTE_COMMAND")}</b> - Unmute the silenced music.
+<b>✧ {command("SKIP_COMMAND")}</b> - Skip the music you are playing.
+<b>✧ {command("STOP_COMMAND")}</b> - Stop the music you are playing.
+<b>✧ {command("SHUFFLE_COMMAND")}</b> - Randomly shuffle the playlist/songs in queue.
+<b>✧ {command("SEEK_COMMAND")}</b> - Seek music to a specific point.
+<b>✧ {command("SEEK_COMMAND")}</b> - Rettrace the music to a specific point.
+<b>✧ {command("REBOOT_COMMAND")}</b> - Restart the bot for your chat.
 
-<b>✧ {command("SKIP_COMMAND")}</b> [Número (Exemplo: 3)] - Pular a música para um número específico. Exemplo: <b>/skip 3</b> vai pular para a terceira música na fila e ignorar 1 e 2.
+<b>✧ {command("SKIP_COMMAND")}</b> [Number (Example: 3)] - Skip the music to a specific number. Example: <b>/skip 3</b> it will jump to the third song in line and ignore 1 and 2.
 
-<b>✧ {command("LOOP_COMMAND")}</b> [Ativar/Desativar] ou [Número entre 1-10] - Quando ativado, o bot irá repetir a música atual de 1 a 10 vezes no chat de voz. O valor padrão é repetir 10 vezes.
+<b>✧ {command("LOOP_COMMAND")}</b> [enable/disable] or [number 1-10] - When activated, the bot will repeat the current song 1 to 10 times on the voice chat.The default value is to repeat 10 times.
 """
