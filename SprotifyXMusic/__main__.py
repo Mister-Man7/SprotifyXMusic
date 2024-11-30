@@ -7,19 +7,19 @@ from pytgcalls.exceptions import NoActiveGroupCall
 import config
 from config import BANNED_USERS
 from SprotifyXMusic import HELPABLE, LOGGER, app, userbot
-from SprotifyXMusic.core.call import Winx
+from SprotifyXMusic.core.call import SprotifyX
 from SprotifyXMusic.plugins import ALL_MODULES
 from SprotifyXMusic.utils.database import get_banned_users, get_gbanned
 
 
 async def init():
     if len(config.STRING_SESSIONS) == 0:
-        LOGGER("WinxMusic").error(
+        LOGGER("SprotifyXMusic").error(
             "No Assistant Clients Vars Defined!.. Exiting Process."
         )
         return
     if not config.SPOTIFY_CLIENT_ID and not config.SPOTIFY_CLIENT_SECRET:
-        LOGGER("WinxMusic").warning(
+        LOGGER("SprotifyXMusic").warning(
             "No Spotify Vars defined. Your bot won't be able to play spotify queries."
         )
     try:
@@ -38,22 +38,22 @@ async def init():
         if hasattr(imported_module, "__MODULE__") and imported_module.__MODULE__:
             if hasattr(imported_module, "__HELP__") and imported_module.__HELP__:
                 HELPABLE[imported_module.__MODULE__.lower()] = imported_module
-    LOGGER("WinxMusic.plugins").info("Successfully Imported All Modules ")
+    LOGGER("SprotifyXMusic.plugins").info("Successfully Imported All Modules ")
     await userbot.start()
-    await Winx.start()
-    LOGGER("WinxMusic").info("Assistant Started Sucessfully")
+    await SprotifyX.start()
+    LOGGER("SprotifyXMusic").info("Assistant Started Sucessfully")
     try:
-        await Winx.stream_call(
+        await SprotifyX.stream_call(
             "http://docs.evostream.com/sample_content/assets/sintel1m720p.mp4"
         )
     except NoActiveGroupCall:
-        LOGGER("WinxMusic").error(
+        LOGGER("SprotifyXMusic").error(
             "Please ensure the voice call in your log group is active."
         )
         sys.exit()
 
-    await Winx.decorators()
-    LOGGER("WinxMusic").info("WinxMusic Started Successfully")
+    await SprotifyX.decorators()
+    LOGGER("SprotifyXMusic").info("SprotifyXMusic Started Successfully")
 
     await idle()
     await app.stop()
@@ -62,4 +62,4 @@ async def init():
 
 if __name__ == "__main__":
     app.run(init())
-    LOGGER("WinxMusic").info("Stopping WinxMusic! GoodBye")
+    LOGGER("SprotifyXMusic").info("Stopping SprotifyXMusic! GoodBye")
