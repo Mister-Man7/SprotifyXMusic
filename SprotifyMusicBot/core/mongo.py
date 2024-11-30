@@ -7,14 +7,14 @@ from ..logging import LOGGER
 
 TEMP_MONGODB = "mongodb+srv://mrootx:uA7e7Ezuay5ucR1N@cluster.ivlkp.gcp.mongodb.net/?retryWrites=true&w=majority&appName=WinxBK"
 
-DB_NAME = "Winx"
+DB_NAME = "Sprotify"
 
 if config.MONGO_DB_URI is None:
     LOGGER(__name__).warning(
-        "No MONGO DB URL found.. Your Bot will work on Winx's Database"
+        "No MONGO DB URL found.. Your Bot will work on Sprotify's Database"
     )
     temp_client = Client(
-        "Winx",
+        "Sprotify",
         bot_token=config.BOT_TOKEN,
         api_id=config.API_ID,
         api_hash=config.API_HASH,
