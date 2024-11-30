@@ -135,7 +135,7 @@ class AnimeZey:
                     [
                         [
                             InlineKeyboardButton(
-                                text="🚦 Cancelar Download",
+                                text="🚦Cancel Download",
                                 callback_data=f"stop_downloading_animezey_{download_id}",
                             ),
                         ]
@@ -157,12 +157,12 @@ class AnimeZey:
                     text = f"""
     **AnimeZey Downloader 📥**
 
-    💾 **Tamanho total do arquivo:** {total_size}
-    ✅ **Concluído:** {completed_size} 
-    📊 **Progresso:** {percentage[:5]}%
+    💾 **Total file size:** {total_size}
+    ✅ **Completed:** {completed_size} 
+    📊 **Progress:** {percentage[:5]}%
 
-    ⚡ **Velocidade:** {speed}/s
-    ⏳ **Tempo restante:** {eta}"""
+    ⚡ **Speed:** {speed}/s
+    ⏳ **Remaining time:** {eta}"""
                     try:
                         await mystic.edit_text(text, reply_markup=upl)
                     except Exception as e:
@@ -188,13 +188,13 @@ class AnimeZey:
                             await progress(current_size, total_size)
 
                     await mystic.edit_text(
-                        "✅ Download concluído com sucesso...\n📂 Processando arquivo agora"
+                        "✅ Download Completed Successfully...\n📂 Processing File Now"
                     )
                     downloader.pop("eta", None)
                     downloader.pop(download_id, None)
                     return True
             except Exception as e:
-                await mystic.edit_text(f"Erro ao baixar: {str(e)}")
+                await mystic.edit_text(f"Error when downloading: {str(e)}")
                 return False
 
         if len(downloader) > 10:
@@ -203,9 +203,9 @@ class AnimeZey:
                 low = min(timers)
                 eta = get_readable_time(low)
             except Exception:
-                eta = "Desconhecido"
+                eta = "Unknown"
             await mystic.edit_text(
-                f"Muitos downloads simultâneos! Tempo estimado de espera: {eta}."
+                f"Many simultaneous downloads! Estimated waiting time: {eta}."
             )
             return False
 
@@ -288,4 +288,4 @@ async def stop_downloading_animezey(_, callback_query: CallbackQuery):
 
     # todo remove file if exists?
 
-    await callback_query.edit_message_text("🚦 Download cancelado com sucesso.")
+    await callback_query.edit_message_text("🚦 Download canceled successfully.")

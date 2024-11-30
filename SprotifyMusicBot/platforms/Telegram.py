@@ -48,9 +48,9 @@ class Telegram:
         try:
             file_name = file.file_name
             if file_name is None:
-                file_name = "🎵 Áudio do Telegram" if audio else "🎥 Vídeo do Telegram"
+                file_name = "🎵 Telegram Audio" if audio else "🎥 Telegram Video"
         except Exception:
-            file_name = "🎵 Áudio do Telegram" if audio else "🎥 Vídeo do Telegram"
+            file_name = "🎵 Telegram Audio" if audio else "🎥 Telegram Video"
         return file_name
 
     async def get_duration(self, file: Union[Video, Voice, Message]):
@@ -135,7 +135,7 @@ class Telegram:
                     [
                         [
                             InlineKeyboardButton(
-                                text="🚦 Cancelar Download",
+                                text="🚦 Cancel Download",
                                 callback_data="stop_downloading",
                             ),
                         ]
@@ -154,14 +154,14 @@ class Telegram:
                     completed_size = convert_bytes(current)
                     speed = convert_bytes(speed)
                     text = f"""
-**{app.mention} 📥 Downloader de Mídia do Telegram**
+**{app.mention} 📥 Telegram Media Downloader**
 
-💾 **Tamanho total do arquivo:** {total_size}
-✅ **Concluído:** {completed_size} 
-📊 **Progresso:** {percentage[:5]}%
+💾 **Full file size:** {total_size}
+✅ **Completed:** {completed_size} 
+📊 **Progress:** {percentage[:5]}%
 
-⚡ **Velocidade:** {speed}/s
-⏳ **Tempo restante:** {eta}"""
+⚡ **Speed:** {speed}/s
+⏳ **Remaining time:** {eta}"""
                     try:
                         await mystic.edit_text(text, reply_markup=upl)
                     except Exception:
@@ -180,7 +180,7 @@ class Telegram:
                     progress=progress,
                 )
                 await mystic.edit_text(
-                    "✅ Download concluído com sucesso...\n📂 Processando arquivo agora"
+                    "✅ Download Completed Successfully...\n📂 Processing File Now"
                 )
                 downloader.pop(message.id, None)
             except Exception:
