@@ -282,20 +282,20 @@ async def auto_clean():
 
 asyncio.create_task(auto_clean())
 
-__MODULE__ = "G cast"
+__MODULE__ = "G Cast"
 __HELP__ = f"""
-<b>{command("BROADCAST_COMMAND")} [Mensagem ou Responder a qualquer mensagem]</b> » Transmite uma mensagem para os chats atendidos pelo bot.
-<u>Modos de Transmissão:</u>
+<b>{command("BROADCAST_COMMAND")} [Message or reply to any message]</b> » Broadcast a message to the chats served by the bot.
+<u>Transmission modes:</u>
 
-<b><code>-pin</code></b> » Fixa sua mensagem transmitida nos chats atendidos.
+<b><code>-pin</code></b> » Pin your message broadcasted on the chats served.
 
-<b><code>-pinloud</code></b> » Fixa sua mensagem transmitida nos chats atendidos e envia uma notificação para os membros.
+<b><code>-pinloud</code></b> » Fix your message broadcasted on the chats served and send a notification to the members.
 
-<b><code>-user</code></b> » Transmite a mensagem para quem iniciou o seu bot [Você também pode fixar a mensagem usando `-pin` ou `-pinloud`].
+<b><code>-user</code></b> » Broadcast the message to those who started your bot [you can also fix the message using `-pin` or `-pinloud`].
 
-<b><code>-assistant</code></b> » Transmite sua mensagem através de todos os Assistentes do bot.
+<b><code>-assistant</code></b> » Broadcast your message through all the assistants of the bot.
 
-<b><code>-nobot</code></b> » Força o **bot** a não transmitir a mensagem [Útil quando você não deseja transmitir a mensagem para grupos].
+<b><code>-nobot</code></b> » Force the ** bot ** not to broadcast the [useful message when you do not want to convey the message to groups].
 
-> <b>Exemplo:</b> <code>/broadcast -user -assistant -pin Testando transmissão</code>
+> <b>Example:</b> <code>/broadcast -user -assistant -pin Testing Transmission</code>
 """
