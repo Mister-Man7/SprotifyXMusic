@@ -32,7 +32,7 @@ sudo apt install tmux && tmux
 ```
 Run your f*cking bot:
 ```bash
-python3 -m WinxMusic
+python3 -m SprotifyMusicBot
 ```
 Detach from the screen session:
 ```
