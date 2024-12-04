@@ -20,7 +20,7 @@ Follow this [link](https://github.com/Mister-Man7/SprotifyXMusic/blob/main/confi
 [Fork](https://github.com/Mister-Man7/SprotifyXMusic/fork) then clone this repository:
 
 ```bash
-git clone https://github.com/Mister-Man7/SprotifyXMusic/fork && cd SprotifyXMusic
+git clone https://github.com/Mister-Man7/SprotifyXMusic && cd SprotifyXMusic
 ```
 Run the setup:
 ```bash
@@ -28,7 +28,7 @@ bash setup
 ```
 Install screen to keep your bot running after closing the terminal:
 ```bash
-sudo apt install tmux && tmux
+sudo apt install screen && screen -S Sprotify
 ```
 Run your f*cking bot:
 ```bash
