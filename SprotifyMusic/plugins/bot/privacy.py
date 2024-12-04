@@ -12,7 +12,7 @@ PRIVACY_COMMAND = get_command("PRIVACY_COMMAND")
 TEXT = f"""
 🔒 **Privacy Policy of {app.mention}!**
 
-Your privacy is important to us.To learn more about how we collect, use and protect your data, please review our privacy policy here: [Privacy Policy] ({config.privacy_link}).
+Your privacy is important to us.To learn more about how we collect, use and protect your data, please review our privacy policy here: [Privacy Policy] ({config.PRIVACY_LINK}).
 
 If you have any questions or concern, feel free to contact our [Support team]({config.SUPPORT_GROUP}).
 """
