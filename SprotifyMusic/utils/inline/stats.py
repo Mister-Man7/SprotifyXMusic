@@ -1,6 +1,6 @@
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from SprotifyXMusic import app
+from SprotifyMusic import app
 
 
 def back_stats_markup(_):

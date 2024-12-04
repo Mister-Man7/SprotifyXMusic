@@ -2,7 +2,7 @@ from typing import Union
 
 from pyrogram.types import InlineKeyboardButton
 
-from SprotifyXMusic import app
+from SprotifyMusic import app
 from config import GITHUB_REPO, SUPPORT_CHANNEL, SUPPORT_GROUP
 
 

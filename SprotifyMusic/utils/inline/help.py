@@ -1,6 +1,6 @@
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from SprotifyXMusic import app
+from SprotifyMusic import app
 from config import SUPPORT_GROUP
 
 

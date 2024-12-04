@@ -2,7 +2,7 @@ import math
 
 from pyrogram.types import InlineKeyboardButton
 
-from SprotifyXMusic.utils.formatters import time_to_seconds
+from SprotifyMusic.utils.formatters import time_to_seconds
 
 
 def get_progress_bar(percentage: float):
