@@ -1,1 +1,1 @@
-worker: python3 -m WinxMusic
+worker: python3 -m SprotifyMusicBot

@@ -11,4 +11,4 @@ RUN python3 -m pip install --upgrade pip setuptools wheel && \
     pip3 install --no-cache-dir -r requirements.txt && \
     rm -rf ~/.cache/pip
 
-CMD python3 -m WinxMusic
+CMD python3 -m SprotifyMusicBot

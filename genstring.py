@@ -4,7 +4,7 @@ from pyrogram import Client as c
 
 
 async def generate_session(api_id, api_hash):
-    i = c("winxstring", in_memory=True, api_id=api_id, api_hash=api_hash)
+    i = c("sprotifystring", in_memory=True, api_id=api_id, api_hash=api_hash)
 
     await i.start()
     ss = await i.export_session_string()
