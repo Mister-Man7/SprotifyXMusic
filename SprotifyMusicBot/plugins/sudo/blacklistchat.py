@@ -25,7 +25,7 @@ async def blacklist_chat_func(_client: Client, message: Message, _):
     if blacklisted:
         await message.reply_text(_["black_3"])
     else:
-        await message.reply_text("⚠️ Algo deu errado.")
+        await message.reply_text("⚠️ Something went wrong.")
     try:
         await app.leave_chat(chat_id)
     except Exception:

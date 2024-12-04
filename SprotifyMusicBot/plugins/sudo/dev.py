@@ -212,19 +212,19 @@ def command(cmd: str):
 
 __MODULE__ = "Dev"
 __HELP__ = f"""
-<b><u>Adicionar e remover sudoers:</u></b>
+<b><u>Add and Remove Sudoers:</u></b>
 
-<b>{command("ADDSUDO_COMMAND")} [Nome de usuário ou responder a um usuário] - Adicionar sudo ao seu bot</b>
-<b>{command("DELSUDO_COMMAND")} [Nome de usuário, ID do usuário ou responder a um usuário] - Remover dos sudoers do bot</b>
-<b>{command("SUDOUSERS_COMMAND")} - Obter uma lista de todos os sudoers</b>
+<b>{command("ADDSUDO_COMMAND")} [Username or reply to a user] - Add sudo to your bot</b>
+<b>{command("DELSUDO_COMMAND")} [Username, user id or respond to a user] - Remove from suders from the bot</b>
+<b>{command("SUDOUSERS_COMMAND")} - Get a list of all Sudoers</b>
 
-<b><u>Comandos do Bot:</u></b>
+<b><u>Bot commands:</u></b>
 
-<b>{command("RESTART_COMMAND")}</b> - Reiniciar o bot (apenas SUDOERS)
-<b>{command("UPDATE_COMMAND")}</b> - Atualizar o bot
-<b>{command("SPEEDTEST_COMMAND")}</b> - Verificar a velocidade do servidor
-<b>{command("MAINTENANCE_COMMAND")} [ativar / desativar]</b> - Ativar ou desativar o modo de manutenção do bot
-<b>{command("LOGGER_COMMAND")} [ativar / desativar]</b> - Ativar ou desativar o registro de consultas pesquisadas no grupo de logs
-<b>{command("GETLOG_COMMAND")} [Número de linhas]</b> - Obter logs do servidor
-<b>{command("AUTOEND_COMMAND")} [ativar / desativar]</b> - Encerrar automaticamente a transmissão após 30 segundos se ninguém estiver ouvindo músicas
+<b>{command("RESTART_COMMAND")}</b> - Restart the bot (only Sudoers)
+<b>{command("UPDATE_COMMAND")}</b> - Update the bot
+<b>{command("SPEEDTEST_COMMAND")}</b> - Check server speed
+<b>{command("MAINTENANCE_COMMAND")} [enable / disable]</b> - Activate or disable Bot maintenance mode
+<b>{command("LOGGER_COMMAND")} [enable / disable]</b> - Activate or disable the registration of consultations surveyed in the log group
+<b>{command("GETLOG_COMMAND")} [Número de linhas]</b> - Get server logs
+<b>{command("AUTOEND_COMMAND")} [enable / disable]</b> - Automatically end the transmission after 30 seconds if no one is listening to music
 """

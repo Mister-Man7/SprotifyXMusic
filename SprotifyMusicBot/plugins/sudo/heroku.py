@@ -17,7 +17,7 @@ from pyrogram.types import Message
 
 import config
 from SprotifyMusic import app
-from SprotifyMusic.core.call import Winx
+from SprotifyMusic.core.call import Sprotify
 from SprotifyMusic.misc import HAPP, SUDOERS, XCB, db
 from SprotifyMusic.utils.database import (
     get_active_chats,
@@ -319,7 +319,7 @@ async def reboot(client, message: Message, _):
     await asyncio.sleep(1)
     try:
         db[message.chat.id] = []
-        await Winx.stop_stream(message.chat.id)
+        await Sprotify.stop_stream(message.chat.id)
     except Exception:
         pass
     chat_id = await get_cmode(message.chat.id)
@@ -330,7 +330,7 @@ async def reboot(client, message: Message, _):
             pass
         try:
             db[chat_id] = []
-            await Winx.stop_stream(chat_id)
+            await Sprotify.stop_stream(chat_id)
         except Exception:
             pass
     return await mystic.edit_text("Sucessfully Restarted \nTry playing Now..")
@@ -364,4 +364,4 @@ async def restart_(client, message):
     await response.edit_text(
         "Restart process started, please wait for few seconds until the bot starts..."
     )
-    os.system(f"kill -9 {os.getpid()} && python3 -m WinxMusic")
+    os.system(f"kill -9 {os.getpid()} && python3 -m SprotifyMusicBot")

@@ -18,7 +18,7 @@ SUDOUSERS_COMMAND = get_command("SUDOUSERS_COMMAND")
 async def useradd(client, message: Message, _):
     if MONGO_DB_URI is None:
         return await message.reply_text(
-            "**Devido a questões de privacidade, você não pode gerenciar sudoers quando está no banco de dados Winx.\n\n Por favor, preencha o seu MONGO_DB_URI nas variáveis para usar este recurso.**"
+            "**Due to privacy issues, you cannot manage Sudoers when you are in the Sprotify database.\n\n Please fill your MONGO_DB_URI in the variables to use this feature.**"
         )
     if not message.reply_to_message:
         if len(message.command) != 2:
@@ -34,7 +34,7 @@ async def useradd(client, message: Message, _):
             SUDOERS.add(user.id)
             await message.reply_text(_["sudo_2"].format(user.mention))
         else:
-            await message.reply_text("⚠️ Algo deu errado")
+            await message.reply_text("⚠️ Something went wrong")
         return
     if message.reply_to_message.from_user.id in SUDOERS:
         return await message.reply_text(
@@ -47,7 +47,7 @@ async def useradd(client, message: Message, _):
             _["sudo_2"].format(message.reply_to_message.from_user.mention)
         )
     else:
-        await message.reply_text("⚠️ Algo deu errado")
+        await message.reply_text("⚠️ Something went wrong")
     return
 
 
@@ -56,7 +56,7 @@ async def useradd(client, message: Message, _):
 async def userdel(client, message: Message, _):
     if MONGO_DB_URI is None:
         return await message.reply_text(
-            "**Devido a questões de privacidade, você não pode gerenciar sudoers quando está no banco de dados Winx.\n\n Por favor, preencha o seu MONGO_DB_URI nas variáveis para usar este recurso.**"
+            "**Due to privacy issues, you cannot manage Sudoers when you are in the Sprotify database.\n\n Please fill your MONGO_DB_URI in the variables to use this feature.**"
         )
     if not message.reply_to_message:
         if len(message.command) != 2:
@@ -72,7 +72,7 @@ async def userdel(client, message: Message, _):
             SUDOERS.remove(user.id)
             await message.reply_text(_["sudo_4"])
             return
-        await message.reply_text("⚠️ Algo deu errado")
+        await message.reply_text("⚠️ Something went wrong")
         return
     user_id = message.reply_to_message.from_user.id
     if user_id not in SUDOERS:
@@ -82,7 +82,7 @@ async def userdel(client, message: Message, _):
         SUDOERS.remove(user_id)
         await message.reply_text(_["sudo_4"])
         return
-    await message.reply_text("⚠️ Algo deu errado")
+    await message.reply_text("⚠️ Something went wrong")
 
 
 @app.on_message(filters.command(SUDOUSERS_COMMAND) & ~BANNED_USERS)

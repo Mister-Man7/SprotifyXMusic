@@ -84,16 +84,16 @@ async def ping_com(_client: Client, message: Message, _):
         else:
             IMAGE = get_image(videoid)
     send = (
-        "**⌛️ Duração:** Duração desconhecida\n\nClique no botão abaixo para ver a lista completa na fila"
+        "**⌛️ Duration:** Unknown duration\n\nClick the button below to see the full list in line"
         if DUR == "Unknown"
-        else "\nClique no botão abaixo para ver a lista completa na fila."
+        else "\nClick the button below to see the full list in line."
     )
     cap = f"""**{app.mention} Player**
 
-🎥**Tocando agora:** {title}
+🎥**Playing now:** {title}
 
-🔗**Tipo de Transmissão:** {type}
-🙍‍♂️**Reproduzido por:** {user}
+🔗**Transmission type:** {type}
+🙍‍♂️**Reproduced by:** {user}
 {send}"""
     upl = (
         queue_markup(_, DUR, "c" if cplay else "g", videoid)
@@ -176,11 +176,11 @@ async def queued_tracks(_client: Client, callback_query: CallbackQuery, _):
     for x in got:
         j += 1
         if j == 1:
-            msg += f'Tocando agora:\n\n🏷Título: {x["title"]}\nDuração: {x["dur"]}\nPor: {x["by"]}\n\n'
+            msg += f'Playing now:\n\n🏷title: {x["title"]}\nDuration: {x["dur"]}\nBy: {x["by"]}\n\n'
         elif j == 2:
-            msg += f'Na fila:\n\n🏷Título: {x["title"]}\nDuração: {x["dur"]}\nPor: {x["by"]}\n\n'
+            msg += f'The:\n\n🏷Title: {x["title"]}\nDuration: {x["dur"]}\nBy: {x["by"]}\n\n'
         else:
-            msg += f'🏷Título: {x["title"]}\nDuração: {x["dur"]}\nPor: {x["by"]}\n\n'
+            msg += f'🏷Title: {x["title"]}\nDuration: {x["dur"]}\nBy: {x["by"]}\n\n'
     if "Na fila" in msg:
         if len(msg) < 700:
             await asyncio.sleep(1)
@@ -247,16 +247,16 @@ async def queue_back(_client: Client, callback_query: CallbackQuery, _):
         else:
             image = get_image(videoid)
     send = (
-        "**⌛️ Duração:** Duração desconhecida\n\nClique no botão abaixo para ver a lista completa na fila"
+        "**⌛️ Duration:** Unknown duration\n\nClick the button below to see the full list in line"
         if DUR == "Unknown"
-        else "\nClique no botão abaixo para ver a lista completa na fila."
+        else "\nClick the button below to see the full list in line."
     )
     cap = f"""**{app.mention} Player**
 
-🎥**Tocando agora:** {title}
+🎥**Playing now:** {title}
 
-🔗**Tipo de Transmissão:** {type}
-🙍‍♂️**Reproduzido por:** {user}
+🔗**Transmission type:** {type}
+🙍‍♂️**Requested by:** {user}
 {send}"""
     upl = (
         queue_markup(_, DUR, cplay, videoid)

@@ -4,7 +4,7 @@ from pyrogram import filters, Client
 from pyrogram.types import Message
 
 from SprotifyMusic import app
-from SprotifyMusic.core.call import Winx
+from SprotifyMusic.core.call import Sprotify
 from SprotifyMusic.utils import bot_sys_stats
 from SprotifyMusic.utils.decorators.language import language
 from SprotifyMusic.utils.inline import support_group_markup
@@ -22,7 +22,7 @@ async def ping_com(_client: Client, message: Message, _):
         caption=_["ping_1"].format(app.mention),
     )
     start = datetime.now()
-    pytgping = await Winx.ping()
+    pytgping = await Sprotify.ping()
     UP, CPU, RAM, DISK = await bot_sys_stats()
     resp = (datetime.now() - start).microseconds / 1000
     await response.edit_text(

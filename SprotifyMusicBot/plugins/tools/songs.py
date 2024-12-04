@@ -241,7 +241,7 @@ async def song_helper_cb(_client: Client, callback_query: CallbackQuery, _):
 @language_cb
 async def song_download_cb(client: Client, callback_query: CallbackQuery, _):
     try:
-        await callback_query.answer("📥 <b>Baixando...</b>")
+        await callback_query.answer("📥 <b>Coming down...</b>")
     except Exception:
         pass
 

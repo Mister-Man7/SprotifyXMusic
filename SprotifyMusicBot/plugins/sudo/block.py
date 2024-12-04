@@ -88,15 +88,15 @@ async def sudoers_list(client, message: Message, _):
 
 __MODULE__ = "B-list"
 __HELP__ = f"""
-<b>✧ {command("BLACKLISTCHAT_COMMAND")}</b> [ID do chat] - Bloquear qualquer chat de usar o Bot de Música.
-<b>✧ {command("WHITELISTCHAT_COMMAND")}</b> [ID do chat] - Desbloquear qualquer chat da lista de bloqueio para usar o Bot de Música.
-<b>✧ {command("BLACKLISTEDCHAT_COMMAND")}</b> - Verificar todos os chats bloqueados.
+<b>✧ {command("BLACKLISTCHAT_COMMAND")}</b> [Chat ID] - Block any chat of using the music bot.
+<b>✧ {command("WHITELISTCHAT_COMMAND")}</b> [Chat ID] - Unblock any chat from the lock list to use the music bot.
+<b>✧ {command("BLACKLISTEDCHAT_COMMAND")}</b> - Check all blocked chats.
 
-<b>✧ {command("BLOCK_COMMAND")}</b> [Nome de usuário ou responder a um usuário] - Impede um usuário de usar comandos do bot.
-<b>✧ {command("UNBLOCK_COMMAND")}</b> [Nome de usuário ou responder a um usuário] - Remove um usuário da lista de bloqueio do bot.
-<b>✧ {command("BLOCKED_COMMAND")}</b> - Verificar a lista de usuários bloqueados.
+<b>✧ {command("BLOCK_COMMAND")}</b> [Username or reply to a user] - Prevents a user from using Bot commands.
+<b>✧ {command("UNBLOCK_COMMAND")}</b> [Username or reply to a user] - Removes a user from the bot lock list.
+<b>✧ {command("BLOCKED_COMMAND")}</b> - Check the list of blocked users.
 
-<b>✧ {command("GBAN_COMMAND")}</b> [Nome de usuário ou responder a um usuário] - Banir um usuário de todos os chats atendidos e impedir que ele use seu bot.
-<b>✧ {command("UNGBAN_COMMAND")}</b> [Nome de usuário ou responder a um usuário] - Remove um usuário da lista de banimento global e permite que ele use seu bot.
-<b>✧ {command("GBANNED_COMMAND")}</b> - Verificar a lista de usuários banidos globalmente.
+<b>✧ {command("GBAN_COMMAND")}</b> [Username or reply to a user] - Ban a user of all chats served and prevent them from using your bot.
+<b>✧ {command("UNGBAN_COMMAND")}</b> [Username or reply to a user] - Removes a user from the global banishment list and allows him to use his bot.
+<b>✧ {command("GBANNED_COMMAND")}</b> - Check the list of users banned globally.
 """

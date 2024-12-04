@@ -4,7 +4,7 @@ from pytgcalls.exceptions import NoActiveGroupCall
 
 import config
 from SprotifyMusic import app
-from SprotifyMusic.core.call import Winx
+from SprotifyMusic.core.call import Sprotify
 from SprotifyMusic.utils.decorators.play import play_wrapper
 from SprotifyMusic.utils.logger import play_logs
 from SprotifyMusic.utils.stream.stream import stream
@@ -32,12 +32,12 @@ async def stream_command(
             _["play_2"].format(channel) if channel else _["play_1"]
         )
         try:
-            await Winx.stream_call(url)
+            await Sprotify.stream_call(url)
         except NoActiveGroupCall:
             await mystic.edit_text(
-                "Há um problema com o bot. Por favor, reporte isso ao meu dono e peça para ele verificar o grupo de logs."
+                "There is a problem with the bot. Please report this to my owner and ask him to check the log group."
             )
-            text = "🔊 Por favor, ative o chat de voz.. O bot não consegue transmitir URLs."
+            text = "🔊 Please enable the voice chat .. the bot cannot transmit URLs."
             return await app.send_message(config.LOG_GROUP_ID, text)
         except Exception as e:
             return await mystic.edit_text(_["general_3"].format(type(e).__name__))

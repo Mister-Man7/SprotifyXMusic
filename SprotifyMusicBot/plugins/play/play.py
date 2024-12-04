@@ -206,7 +206,7 @@ async def play_commnd(
             spotify = True
             if not config.SPOTIFY_CLIENT_ID and not config.SPOTIFY_CLIENT_SECRET:
                 return await mystic.edit_text(
-                    "🚫 Este bot não pode reproduzir faixas e playlists do Spotify. Por favor, entre em contato com meu dono e peça para ele adicionar o reprodutor de Spotify."
+                    "🚫 This bot cannot play spotify tracks and playlists.Please contact my owner and ask him to add the Spotify breeder."
                 )
             if "track" in url:
                 try:
@@ -516,18 +516,18 @@ async def play_commnd(
 
 __MODULE__ = "Play"
 __HELP__ = """
-<b>★ play, vplay, cplay</b> - Comandos Disponíveis
-<b>★ playforce, vplayforce, cplayforce</b> - Comandos de Reprodução Forçada
+<b>★ play, vplay, cplay</b> - Available commands
+<b>★ playforce, vplayforce, cplayforce</b> - Forced Commands
 
-<b>✦ c significa reprodução em canal.</b>
-<b>✦ v significa reprodução de vídeo.</b>
-<b>✦ force significa reprodução forçada.</b>
+<b>✦ c It means play from channel.</b>
+<b>✦ v means play from video file.</b>
+<b>✦ Force means forced reproduction.</b>
 
-<b>✧ /play ou /vplay ou /cplay</b> - O bot começará a reproduzir a consulta fornecida no chat de voz ou transmitirá links ao vivo nos chats de voz.
+<b>✧ /play ou /vplay ou /cplay</b> - The bot will start playing the consultation provided on the voice chat or broadcast live links on voice chats.
 
-<b>✧ /playforce ou /vplayforce ou /cplayforce</b> - A Reprodução Forçada interrompe a faixa atual no chat de voz e começa a tocar a faixa pesquisada instantaneamente sem alterar/limpar a fila.
+<b>✧ /playforce ou /vplayforce ou /cplayforce</b> - Forced breeding interrupts the current track on the voice chat and begins to play the searched range instantly without changing/cleaning the queue.
 
-<b>✧ /channelplay [Nome de usuário ou ID do chat] ou [Desativar]</b> - Conecte um canal a um grupo e transmita música no chat de voz do canal a partir do seu grupo.
+<b>✧ /channelplay [User Name or Chat ID] or [Disable]</b> - Connect a channel to a group and transmit music in the channel chat of the channel from your group.
 
-<b>✧ /stream [url] </b> - Transmita uma URL que você acredita ser direta ou m3u8 e que não pode ser reproduzida pelo comando /play.
+<b>✧ /stream [url] </b> - Transmit a URL that you believe to be direct or M3U8 and that cannot be reproduced by the command/play.
 """

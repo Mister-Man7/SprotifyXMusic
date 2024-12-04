@@ -521,12 +521,12 @@ async def del_back_playlist(client, CallbackQuery, _):
 
 __MODULE__ = "Playlist"
 __HELP__ = """
-<b>/playlist</b> - Verifique sua lista de reprodução inteira no servidor do bot
+<b>/playlist</b> - Check your entire playback list on the bot server
 
-<b>/delplaylist</b> - Exclua qualquer música da sua lista de reprodução salva
+<b>/delplaylist</b> - Delete any song from your save playlist
 
-<b>/playplaylist</b> - Comece a tocar sua lista de reprodução salva em **áudio**
+<b>/playplaylist</b> - Start playing your playlist saved in **audio**
 
-<b>/vplayplaylist</b> - Comece a tocar sua lista de reprodução em **vídeo**
+<b>/vplayplaylist</b> - Start playing your playlist in **vídeo**
 
 """

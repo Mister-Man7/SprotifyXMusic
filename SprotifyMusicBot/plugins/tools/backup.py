@@ -62,7 +62,7 @@ async def export_database(client, message):
         return
     if MONGO_DB_URI is None:
         return await message.reply_text(
-            "**Devido a questões de privacidade, você não pode gerenciar sudoers quando está no banco de dados Winx.\n\n Por favor, preencha o seu MONGO_DB_URI nas variáveis para usar este recurso.**"
+            "**Due to privacy issues, you cannot manage Sudoers when you are in the Sprotify database.\n\n Please fill your MONGO_DB_URI in the variables to use this feature.**"
         )
     mystic = await message.reply_text("Exporting Your mongodatabase...")
     _mongo_async_ = AsyncIOMotorClient(MONGO_DB_URI)
@@ -127,7 +127,7 @@ async def import_database(client, message):
         return
     if MONGO_DB_URI is None:
         return await message.reply_text(
-            "**Due to some privacy Issue, You can't Import/Export when you are using Winx Database\n\n Please Fill Your MONGO_DB_URI in vars to use this features**"
+            "**Due to some privacy Issue, You can't Import/Export when you are using Sprotify Database\n\n Please Fill Your MONGO_DB_URI in vars to use this features**"
         )
 
     if not message.reply_to_message or not message.reply_to_message.document:
