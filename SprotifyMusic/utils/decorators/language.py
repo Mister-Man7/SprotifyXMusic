@@ -1,7 +1,7 @@
 from pyrogram.enums import ChatType
 
-from SprotifyXMusic.misc import SUDOERS
-from SprotifyXMusic.utils.database import get_lang, is_commanddelete_on, is_maintenance
+from SprotifyMusic.misc import SUDOERS
+from SprotifyMusic.utils.database import get_lang, is_commanddelete_on, is_maintenance
 from strings import get_string
 
 
