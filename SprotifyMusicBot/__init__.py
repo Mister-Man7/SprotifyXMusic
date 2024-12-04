@@ -1,8 +1,8 @@
-from SprotifyMusic.core.bot import SprotifyBot
-from SprotifyMusic.core.dir import dirr
-from SprotifyMusic.core.git import git
-from SprotifyMusic.core.userbot import Userbot
-from SprotifyMusic.misc import dbb, heroku, sudo
+from SprotifyMusicBot.core.bot import SprotifyBot
+from SprotifyMusicBot.core.dir import dirr
+from SprotifyMusicBot.core.git import git
+from SprotifyMusicBot.core.userbot import Userbot
+from SprotifyMusicBot.misc import dbb, heroku, sudo
 from .core.cookies import save_cookies
 
 from .logging import LOGGER
