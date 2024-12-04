@@ -32,7 +32,7 @@ sudo apt install screen && screen -S Sprotify
 ```
 Run your f*cking bot:
 ```bash
-python3 -m SprotifyMusicBot
+python3 -m SprotifyMusic
 ```
 Detach from the screen session:
 ```
