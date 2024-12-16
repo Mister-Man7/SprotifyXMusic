@@ -11,7 +11,7 @@ from pyrogram.errors import (
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 from SprotifyMusic import app, Platform
-from SprotifyMusic.core.call import Sprotify
+from SprotifyMusic.core.call import Winx
 from SprotifyMusic.core.userbot import assistants
 from SprotifyMusic.misc import SUDOERS
 from SprotifyMusic.utils.database import (
@@ -109,7 +109,7 @@ def play_wrapper(command: callable):
                 [
                     [
                         InlineKeyboardButton(
-                            text="How to solve this?",
+                            text="Como resolver isso?",
                             callback_data="AnonymousAdmin",
                         ),
                     ]
@@ -124,7 +124,7 @@ def play_wrapper(command: callable):
         if PRIVATE_BOT_MODE == str(True):
             if not await is_served_private_chat(message.chat.id):
                 await message.reply_text(
-                    "**Private Music Bot**\n\nOnly for chats authorized by the owner.Ask my owner to allow your chat first."
+                    "**BOT DE MÚSICA PRIVADO**\n\nSomente para chats autorizados pelo dono. Peça ao meu dono para permitir o seu chat primeiro."
                 )
                 return await app.leave_chat(message.chat.id)
         if await is_commanddelete_on(message.chat.id):
@@ -170,7 +170,7 @@ def play_wrapper(command: callable):
             is_call_active = (await app.get_chat(chat_id)).is_call_active
             if not is_call_active:
                 return await message.reply_text(
-                    "**No active video chat found**\n\nMake sure you start a voice chat."
+                    "**Nenhum chat de vídeo ativo encontrado**\n\nPor favor, certifique-se de que você iniciou o chat de voz."
                 )
         except Exception:
             pass
@@ -210,7 +210,7 @@ def play_wrapper(command: callable):
                     ]
                     # Checking if assistant id not in list so clear queues and remove active voice chat and process
                     if not call_participants_id or userbot.id not in call_participants_id:
-                        await Sprotify.stop_stream(chat_id)
+                        await Winx.stop_stream(chat_id)
                 except ChannelPrivate:
                     pass
 
