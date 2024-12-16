@@ -23,6 +23,9 @@ import config
 
 from ..logging import LOGGER
 
+GROUP_CONTEXT_KEY = "group_context:{}"
+USER_CONTEXT_KEY = "user_context:{}"
+
 
 class SprotifyBot(Client):
     def __init__(self: "SprotifyBot"):
@@ -34,7 +37,7 @@ class SprotifyBot(Client):
 
         LOGGER(__name__).info(f"Starting Bot")
         super().__init__(
-            "SprotifyMusicBot",
+            "WinxMusic",
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             bot_token=config.BOT_TOKEN,
@@ -99,7 +102,7 @@ class SprotifyBot(Client):
         try:
             await self.send_message(
                 config.LOG_GROUP_ID,
-                text=f"🚀 <u><b>{self.mention} Bot Launched :</b></u>\n\n🆔 <b>ID</b>: <code>{self.id}</code>\n📛 <b>Name</b>: {self.name}\n🔗 <b>Username:</b> @{self.username}",
+                text=f"🚀 <u><b>{self.mention} Bot Iniciado :</b></u>\n\n🆔 <b>ID</b>: <code>{self.id}</code>\n📛 <b>Nome</b>: {self.name}\n🔗 <b>Nome de usuário:</b> @{self.username}",
             )
         except Exception as e:
             LOGGER(__name__).error(
@@ -116,47 +119,47 @@ class SprotifyBot(Client):
 
     async def _set_default_commands(self):
         private_commands = [
-            BotCommand("start", "Start the bot"),
-            BotCommand("help", "Help menu"),
-            BotCommand("ping", "Check if the bot is active or inactive"),
+            BotCommand("start", "Iniciar o bot"),
+            BotCommand("help", "Obter o menu de ajuda"),
+            BotCommand("ping", "Verificar se o bot está ativo ou inativo"),
         ]
-        group_commands = [BotCommand("play", "play music/video by your request")]
+        group_commands = [BotCommand("play", "Começar a tocar a música solicitada")]
         admin_commands = [
-            BotCommand("play", "play music/video by your request"),
-            BotCommand("skip", "Go to the next song in the queue"),
-            BotCommand("pause", "Pause the current song"),
-            BotCommand("resume", "Resume the current played song"),
-            BotCommand("end", "Clean the queue and get out of the chat of voice"),
-            BotCommand("shuffle", "Rand off the playlist in line"),
-            BotCommand("playmode", "Change your chat default reproduction mode"),
-            BotCommand("settings", "Open bot settings to your chat"),
+            BotCommand("play", "Começar a tocar a música solicitada"),
+            BotCommand("skip", "Ir para a próxima música na fila"),
+            BotCommand("pause", "Pausar a música atual"),
+            BotCommand("resume", "Retomar a música pausada"),
+            BotCommand("end", "Limpar a fila e sair do chat de voz"),
+            BotCommand("shuffle", "Embaralhar aleatoriamente a playlist na fila"),
+            BotCommand("playmode", "Alterar o modo de reprodução padrão do seu chat"),
+            BotCommand("settings", "Abrir as configurações do bot para o seu chat"),
         ]
         owner_commands = [
-            BotCommand("update", "Update the bot"),
-            BotCommand("restart", "Reinition"),
-            BotCommand("logs", "Obtain the records"),
-            BotCommand("export", "Export all Mongodb data"),
-            BotCommand("import", "Import all data in Mongodb"),
-            BotCommand("addsudo", "Add a user as a sudoer"),
-            BotCommand("delsudo", "Remove a user from Sudoers"),
-            BotCommand("sudolist", "List all users sudo"),
-            BotCommand("log", "Obtain the records of bot"),
-            BotCommand("getvar", "Obtain a specific environment variable"),
-            BotCommand("delvar", "Delete a specific environment variable"),
-            BotCommand("setvar", "Define a specific environment variable"),
-            BotCommand("usage", "Get information on the use of Dyno"),
-            BotCommand("maintenance", "Activate or disable maintenance mode"),
-            BotCommand("logger", "Activate or disable the registration of activities"),
-            BotCommand("block", "Block a user"),
-            BotCommand("unblock", "Unlock a user"),
-            BotCommand("blacklist", "Add a chat to the black list"),
-            BotCommand("whitelist", "Remove a chat from the black list"),
-            BotCommand("blacklisted", "List all chats on the black list"),
+            BotCommand("update", "Atualizar o bot"),
+            BotCommand("restart", "Reiniciar o bot"),
+            BotCommand("logs", "Obter os registros"),
+            BotCommand("export", "Exportar todos os dados do MongoDB"),
+            BotCommand("import", "Importar todos os dados no MongoDB"),
+            BotCommand("addsudo", "Adicionar um usuário como sudoer"),
+            BotCommand("delsudo", "Remover um usuário dos sudoers"),
+            BotCommand("sudolist", "Listar todos os usuários sudo"),
+            BotCommand("log", "Obter os registros do bot"),
+            BotCommand("getvar", "Obter uma variável de ambiente específica"),
+            BotCommand("delvar", "Excluir uma variável de ambiente específica"),
+            BotCommand("setvar", "Definir uma variável de ambiente específica"),
+            BotCommand("usage", "Obter informações sobre o uso do Dyno"),
+            BotCommand("maintenance", "Ativar ou desativar o modo de manutenção"),
+            BotCommand("logger", "Ativar ou desativar o registro de atividades"),
+            BotCommand("block", "Bloquear um usuário"),
+            BotCommand("unblock", "Desbloquear um usuário"),
+            BotCommand("blacklist", "Adicionar um chat à lista negra"),
+            BotCommand("whitelist", "Remover um chat da lista negra"),
+            BotCommand("blacklisted", "Listar todos os chats na lista negra"),
             BotCommand(
-                "autoend", "Activate or disable automatic ending for transmissions"
+                "autoend", "Ativar ou desativar o término automático para transmissões"
             ),
-            BotCommand("reboot", "Reinition"),
-            BotCommand("restart", "Reinition"),
+            BotCommand("reboot", "Reiniciar o bot"),
+            BotCommand("restart", "Reiniciar o bot"),
         ]
 
         await self.set_bot_commands(
@@ -213,6 +216,6 @@ class SprotifyBot(Client):
         LOGGER(__name__).info("Bot is shutting down")
         await self.send_message(
             config.LOG_GROUP_ID,
-            text=f"🛑 <u><b>{self.mention} Bot Off :</b></u>\n\n🆔 <b>ID</b>: <code>{self.id}</code>\n📛 <b>Name</b>: {self.name}\n🔗 <b>Username:</b> @{self.username}",
+            text=f"🛑 <u><b>{self.mention} Bot Desligado :</b></u>\n\n🆔 <b>ID</b>: <code>{self.id}</code>\n📛 <b>Nome</b>: {self.name}\n🔗 <b>Nome de usuário:</b> @{self.username}",
         )
         await super().stop()
