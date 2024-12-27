@@ -113,8 +113,8 @@ async def get_thumb(videoid):
 
             youtube = Image.open(f"cache/thumb{videoid}.png")
             image1 = changeImageSize(1280, 720, youtube)
-            image2 = image1.convert("L")
-            background = image2.filter(filter=ImageFilter.GaussianBlur(20)).convert("RGBA")
+            image2 = image1.convert("RGBA")
+            background = image2.filter(filter=ImageFilter.GaussianBlur(20)).convert("L")
             draw = ImageDraw.Draw(background, "RGBA")
             enhancer = ImageEnhance.Brightness(background)
             background = enhancer.enhance(0.6)
