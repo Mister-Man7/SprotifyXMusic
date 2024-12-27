@@ -5,6 +5,15 @@ import aiohttp
 from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont
 from youtubesearchpython.__future__ import VideosSearch
 
+# Load font
+font = ImageFont.truetype("SprotifyMusic/assets/font.ttf", 28)
+font_nav = ImageFont.truetype("SprotifyMusic/assets/Montserrat-Medium.ttf", 22)  # Font untuk navigation bar
+font_nav_bold = ImageFont.truetype("SprotifyMusic/assets/Montserrat-Bold.ttf", 22)  # Font untuk navigation bar
+font_bottom = ImageFont.truetype("SprotifyMusic/assets/Montserrat-Medium.ttf", 20)  # Font untuk tulisan bawah
+
+width, height = 1080, 720
+
+outline_color = (255, 255, 255, 255)
 
 def changeImageSize(maxWidth, maxHeight, image):
     widthRatio = maxWidth / image.size[0]
@@ -13,7 +22,6 @@ def changeImageSize(maxWidth, maxHeight, image):
     newHeight = int(heightRatio * image.size[1])
     newImage = image.resize((newWidth, newHeight))
     return newImage
-
 
 def truncate(text):
     words = text.split(" ")
@@ -29,11 +37,12 @@ def truncate(text):
     text2 = text2.strip()
     return [text1, text2]
 
-
-def crop_center_circle(img, output_size, border, crop_scale=1.5):
+def crop_rounded_rectangle(img, output_size, border, corner_radius, crop_scale=1.5):
+    # pusat potonya
     half_width = img.size[0] / 2
     half_height = img.size[1] / 2
     larger_size = int(output_size * crop_scale)
+
     img = img.crop(
         (
             half_width - larger_size / 2,
@@ -44,23 +53,32 @@ def crop_center_circle(img, output_size, border, crop_scale=1.5):
     )
 
     img = img.resize((output_size - 2 * border, output_size - 2 * border))
+    img_last = Image.new("L", size=(output_size, output_size), color="white")
 
-    final_img = Image.new("RGBA", (output_size, output_size), "pink")
-
+    # bikin mask
     mask_main = Image.new("L", (output_size - 2 * border, output_size - 2 * border), 0)
     draw_main = ImageDraw.Draw(mask_main)
-    draw_main.ellipse((0, 0, output_size - 2 * border, output_size - 2 * border), fill=255)
+    draw_main.rounded_rectangle(
+        (0, 0, output_size - 2 * border, output_size - 2 * border),
+        radius=corner_radius,
+        fill=255,
+    )
 
-    final_img.paste(img, (border, border), mask_main)
-
+    # masukin gambar ke rounded rectangle
+    img_last.paste(
+        img,
+        (border, border),
+        mask_main,
+        )
+    # Membuat border untuk mask
     mask_border = Image.new("L", (output_size, output_size), 0)
     draw_border = ImageDraw.Draw(mask_border)
-    draw_border.ellipse((0, 0, output_size, output_size), fill=255)
+    draw_border.rounded_rectangle((0, 0, output_size, output_size), radius=corner_radius, fill=255)
 
-    result = Image.composite(final_img, Image.new("RGBA", final_img.size, (0, 0, 0, 0)), mask_border)
+    # Membuat gambar akhir dengan border dan mask
+    result = Image.composite(img_last, Image.new("RGBA", img_last.size, (0, 0, 0, 0)), mask_border)
 
     return result
-
 
 async def get_thumb(videoid):
     if os.path.isfile(f"cache/{videoid}_v4.png"):
@@ -95,50 +113,52 @@ async def get_thumb(videoid):
 
             youtube = Image.open(f"cache/thumb{videoid}.png")
             image1 = changeImageSize(1280, 720, youtube)
-            image2 = image1.convert("RGBA")
-            background = image2.filter(filter=ImageFilter.BoxBlur(20))
+            image2 = image1.convert("L")
+            background = image2.filter(filter=ImageFilter.GaussianBlur(20)).convert("RGBA")
+            draw = ImageDraw.Draw(background, "RGBA")
             enhancer = ImageEnhance.Brightness(background)
             background = enhancer.enhance(0.6)
-            draw = ImageDraw.Draw(background)
-            arial = ImageFont.truetype("TanuMusic/assets/font2.ttf", 30)
-            font = ImageFont.truetype("TanuMusic/assets/font.ttf", 30)
-            title_font = ImageFont.truetype("TanuMusic/assets/font3.ttf", 45)
-
-            circle_thumbnail = crop_center_circle(youtube, 400, 20)
-            circle_thumbnail = circle_thumbnail.resize((400, 400))
-            circle_position = (120, 160)
-            background.paste(circle_thumbnail, circle_position, circle_thumbnail)
+            font = ImageFont.truetype("SprotifyMusic/assets/font.ttf", 30)
+            
+            corner_radius = 50  # Radius sudut rounded rectangle
+            rectangle_thumbnail = crop_rounded_rectangle(youtube, 400, 20, corner_radius)
+            rectangle_thumbnail = rectangle_thumbnail.resize((400, 400))
+            rectangle_position = (120, 160)  # Menempatkan di sebelah kiri
+            background.paste(rectangle_thumbnail, rectangle_position, rectangle_thumbnail)
 
             text_x_position = 565
 
             title1 = truncate(title)
-            draw.text((text_x_position, 180), title1[0], fill=(255, 255, 255), font=title_font)
-            draw.text((text_x_position, 230), title1[1], fill=(255, 255, 255), font=title_font)
-            draw.text((text_x_position, 320), f"{channel}  |  {views[:23]}", (255, 255, 255), font=arial)
-            draw.text((10, 10), f"TANU MUSIC", fill="yellow", font=font)
+            draw.text((10, 10), f"Sprotify Music", fill=outline_color, font=font)
 
-            line_length = 580
-            red_length = int(line_length * 0.6)
-            white_length = line_length - red_length
+            # Membuat rounded rectangle persegi panjang di atas (kanan) tanpa warna fill
+            rect_width, rect_height = 600, 100
+            x1, y1 = width - rect_width - 50, (height // 2) - rect_height - 80
+            x2, y2 = x1 + rect_width, y1 + rect_height
+            draw.rounded_rectangle((x1, y1, x2, y2), radius=20, outline=outline_color, width=3)
+            draw.text((x1 + 20, y1 + 30), f"Title: {title1}", fill="white", font=font)
 
-            start_point_red = (text_x_position, 380)
-            end_point_red = (text_x_position + red_length, 380)
-            draw.line([start_point_red, end_point_red], fill="red", width=9)
+            # Membuat rounded rectangle persegi panjang tengah (kanan) tanpa warna fill
+            y1, y2 = (height // 2) - (rect_height // 2), (height // 2) + (rect_height // 2)
+            draw.rounded_rectangle((x1, y1, x2, y2), radius=20, outline=outline_color, width=3)
+            draw.text((x1 + 20, y1 + 30), f"Channel: {channel}", fill="white", font=font)
 
-            start_point_white = (text_x_position + red_length, 380)
-            end_point_white = (text_x_position + line_length, 380)
-            draw.line([start_point_white, end_point_white], fill="white", width=8)
+            # Membuat rounded rectangle persegi panjang di bawah (kanan) tanpa warna fill
+            y1, y2 = (height // 2) + 80, (height // 2) + 80 + rect_height
+            draw.rounded_rectangle((x1, y1, x2, y2), radius=20, outline=outline_color, width=3)
+            draw.text((x1 + 20, y1 + 30), f"Duration: {duration}", fill="white", font=font)
 
-            circle_radius = 10
-            circle_position = (end_point_red[0], end_point_red[1])
-            draw.ellipse([circle_position[0] - circle_radius, circle_position[1] - circle_radius,
-                          circle_position[0] + circle_radius, circle_position[1] + circle_radius], fill="red")
-            draw.text((text_x_position, 400), "00:00", (255, 255, 255), font=arial)
-            draw.text((1080, 400), duration, (255, 255, 255), font=arial)
+            # Menambahkan teks di bagian bawah tengah
+            text = "Made with Luv by EasyWinter"
+            # Menggunakan textbbox untuk mendapatkan ukuran teks
+            text_bbox = draw.textbbox((0, 0), text, font=font_bottom)
+            text_width = text_bbox[2] - text_bbox[0]  # Lebar teks
+            text_height = text_bbox[3] - text_bbox[1]  # Tinggi teks
 
-            play_icons = Image.open("TanuMusic/assets/play_icons.png")
-            play_icons = play_icons.resize((580, 62))
-            background.paste(play_icons, (text_x_position, 450), play_icons)
+            # Posisi teks di bagian bawah tengah
+            text_x = (width - text_width) // 2  # Posisi tengah
+            text_y = height - text_height - 20  # Posisi 20px dari bagian bawah
+            draw.text((text_x, text_y), text, fill="white", font=font_bottom)
 
             try:
                 os.remove(f"cache/thumb{videoid}.png")
