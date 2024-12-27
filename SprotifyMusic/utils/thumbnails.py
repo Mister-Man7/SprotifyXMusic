@@ -115,7 +115,7 @@ async def get_thumb(videoid):
             image1 = changeImageSize(1280, 720, youtube)
             image2 = image1.convert("RGBA")
             background = image2.filter(filter=ImageFilter.GaussianBlur(20)).convert("L")
-            draw = ImageDraw.Draw(background, "RGBA")
+            draw = ImageDraw.Draw(image2, "RGBA")
             enhancer = ImageEnhance.Brightness(background)
             background = enhancer.enhance(0.6)
             font = ImageFont.truetype("SprotifyMusic/assets/font.ttf", 30)
