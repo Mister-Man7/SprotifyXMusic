@@ -20,7 +20,7 @@ Follow this [link](https://github.com/Mister-Man7/SprotifyXMusic/blob/main/confi
 [Fork](https://github.com/Mister-Man7/SprotifyXMusic/fork) then clone this repository:
 
 ```bash
-git clone https://github.com/Mister-Man7/SprotifyXMusic/fork && cd SprotifyXMusic
+git clone https://github.com/Mister-Man7/SprotifyXMusic && cd SprotifyXMusic
 ```
 Run the setup:
 ```bash
@@ -32,7 +32,7 @@ sudo apt install tmux && tmux
 ```
 Run your f*cking bot:
 ```bash
-python3 -m WinxMusic
+python3 -m SprotifyMusic
 ```
 Detach from the screen session:
 ```
