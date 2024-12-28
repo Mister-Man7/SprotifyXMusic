@@ -47,7 +47,7 @@ UPSTREAM_REPO = getenv(
     "https://github.com/Mister-Man7/SprotifyXMusic",
 )
 
-UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "v2")
+UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "main")
 
 GIT_TOKEN = getenv(
     "GIT_TOKEN", None
