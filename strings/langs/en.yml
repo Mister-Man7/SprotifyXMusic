@@ -179,7 +179,7 @@ queue_6 : "<b>>> Duration:</b> Unknown duration stream\n\n● Click on button be
 queue_7 : "\n>> Click on button below to get whole queued list."
 queue_8 : "<b>>> {0} Player</b> >>\n\n● <b>Streaming:</b> {1}\n\n● <b>Stream type:</b> {2}\n● <b>Requested by:</b> {3}\n{4}"
 
-stream_1 : "<blockquote><b>Sprotify Music started streaming</b></blockquote><b>\n\n</b><blockquote>❐ <b>Title:</b> <a href:{0}>{1}</a>\n❐ <b>Duration:</b> <pre>{2} minutes</pre>\n<b>❐ Requested by:</b> {3}\n\n</blockquote>"
+stream_1 : "<blockquote><b>Sprotify Music started streaming</b></blockquote><b>\n\n</b><blockquote>❐ <b>Title:</b> <a href:{0}>{1}</a>\n❐ <b>Duration:</b> <code>{2} minutes</code>\n<b>❐ Requested by:</b> {3}\n\n</blockquote>"
 stream_2 : "<blockquote><b>Sprotify Music started streaming</b></blockquote><b>\n\n<b><blockquote>❐ Stream type:</b> Live stream [URL]\n<b>❐ Requested by:</b> {0}\n\n<blockquote>"
 
 CLOSE_BUTTON : "Close"
