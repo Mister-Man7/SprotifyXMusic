@@ -1,59 +1,54 @@
-</h2>
-<p align="center">
-  <img src="https://envs.sh/pu3.jpg">
-</p>
+<h1 align="center" id="title">SprotifyXMusic</h1>
 
-<h2 align="center">
-     ˹ ᴛᴀɴᴜ ꭙ ᴍᴜsɪᴄ™ ♡゙
-</h2>
+![SprotifyXMusic](https://socialify.git.ci/Mister-Man7/SprotifyXMusic/image?description=1&descriptionEditable=Coolest%20Telegram%20Music%20and%20Video%20Player%20Bot&font=KoHo&forks=1&issues=1&language=1&name=1&owner=1&pattern=Solid&pulls=1&stargazers=1&theme=Auto)
 
-[Tanu Music Bot](https://t.me/TanuMusicxBot) is a Powerful Telegram Music+Video Bot written in Python using Pyrogram and Py-Tgcalls by which you can stream songs, video and even live streams in your group calls via various sources.
+---
+[SprotifyXMusic](https://github.com/Mister-Man7/SprotifyXMusic) is an innovative Telegram bot powered by Python with Pyrogram and Py-Tgcalls. Lets you stream music, videos, and even live broadcasts in group calls from various sources seamlessly.
 
-* Youtube, Soundcloud, Apple Music, Spotify, Resso, Live Streams and Telegram Audios & Videos support.
-* Written from scratch, making it stable and less crashes with attractive thumbnails.
-* Loop, Seek, Shuffle, Specific Skip, Playlists etc support
+## 🗒️Pre-requisite
+- [x] [Python](https://www.python.org/) Environment (use v3.9 or higher)
+- [x] [Telegram API](https://my.telegram.org) Credentials
+- [x] [Pyrogram](https://docs.pyrogram.org/index) and [Py-Tgcalls](https://tgcalls.org/)
+- [x] [MongoDB](https://www.mongodb.com/) Database
+- [x] VPS of course
 
+## ⚙️ Configuration
+Follow this [link](https://github.com/Mister-Man7/SprotifyXMusic/blob/main/config/README.md) for see the best configurations
 
+## 🚀 VPS Deployment (recommended)
 
-## 🚀 Heroku Deployment
+[Fork](https://github.com/Mister-Man7/SprotifyXMusic/fork) then clone this repository:
 
-<h4>Click the button below to deploy Tanu Music Bot on Heroku!</h4>    
-<h4>If You show any error like failed to app Creation Then fork and deploy </h4>
-<a href="https://dashboard.heroku.com/new?template=https://github.com/CodeSearchDev/TanuMusic"><img src="https://img.shields.io/badge/Deploy%20On%20Heroku-008080?style=for-the-badge&logo=heroku" width="200""/></a>
+```bash
+git clone https://github.com/Mister-Man7/SprotifyXMusic/fork && cd SprotifyXMusic
+```
+Run the setup:
+```bash
+bash setup
+```
+Install screen to keep your bot running after closing the terminal:
+```bash
+sudo apt install tmux && tmux
+```
+Run your f*cking bot:
+```bash
+python3 -m WinxMusic
+```
+Detach from the screen session:
+```
+CTRL + A, then D
+```
 
+## Support
 
-## 🖇 VPS Deployment
-- Get your [Necessary Variables](https://github.com/itzAsuraa/TanuMusic/blob/master/sample.env)
-- clone repo : `git clone https://github.com/itzAsuraa/TanuMusic && cd TanuMusic`
-- Setup by : ` sudo bash setup`
-- Install tmux to keep running your bot when you close the terminal by :
-`sudo apt install tmux && tmux`
-- Finally run the bot by :
-`bash start`
-- For getting out from tmux session : Press `Ctrl+b` and then `d`<br>
+Need help? Here’s how you can get support:
 
+[![Telegram](https://img.shields.io/badge/-Update%20CHANNEL-blue?style=for-the-badge&logo=telegram&color=white)](https://t.me/SprotifyNews)
+[![Telegram](https://img.shields.io/badge/-DISCUSSION-blue?style=for-the-badge&logo=telegram&color=white)](https://t.me/datarantinggi)
 
-# Tanu Music Configs
- [Checkout Here For Config Vars](https://github.com/itzAsuraa/TanuMusic/blob/master/config/ConfigReadme.md)
-# 🏷 Support / Assistance
+## ❤️Acknowledgement
 
-Reach out to the maintainer at one of the following places:
-
-- [GitHub Issues](https://github.com/itzAsuraa/TanuMusic/issues/new?assignees=&labels=question&template=SUPPORT_QUESTION.md&title=support%3A+)
-- Contact  [Telegram profile](https://t.me/itzAsuraa)
-- [Telegram Support](https://t.me/AsuraaSupports)
-
-If you want to say **thank you** or/and support active development of TanuMusicBot:
-
-- Add a [GitHub Star](https://github.com/itzAsuraa/TanuMusic) to the project.
-
-
-Together, we can make **TanuMusic** better!
-
-### Contact:
-<a href="https://t.me/itzAsuraa">
-    <img title="Telegram" src="https://img.shields.io/badge/Telegram-%23000000.svg?&style=for-the-badge&logo=telegram&logoColor=61DAFB">
-</a>
-<a href="https://instagram.com/itzAsuraa">
-    <img title="Instagram" src="https://img.shields.io/badge/instagram-%23E4405F.svg?&style=for-the-badge&logo=instagram&logoColor=white">
-</a>
+- [x] [TeamYukki](https://github.com/TeamYukki)
+- [x] [TeamUltroid](https://github.com/TeamUltroid)
+- [x] [WinxMusic](https://github.com/gabrielmaialva33/winx-music-bo)
+---
