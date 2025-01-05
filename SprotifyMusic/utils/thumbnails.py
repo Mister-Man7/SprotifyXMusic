@@ -88,7 +88,8 @@ async def get_thumb(videoid):
 
             draw = ImageDraw.Draw(background)
             font = ImageFont.truetype("SprotifyMusic/assets/Montserrat-Medium.ttf", 20)
-            title_font = ImageFont.truetype("SprotifyMusic/assets/Montserrat-Bold.ttf", 45)
+            title_font = ImageFont.truetype("SprotifyMusic/assets/Montserrat-Bold.ttf", 40)
+            lemon_font = ImageFont.truetype("SprotifyMusic/assets/Lemon-Regular.ttf", 35)
 
             # Rounded rectangle thumbnail
             corner_radius = 50
@@ -138,7 +139,7 @@ async def get_thumb(videoid):
             title1 = truncate(title)
             draw.text((text_x, text_y_1), title1[0], fill="white", font=title_font)
             draw.text((text_x, text_y_2), title1[1], fill="white", font=title_font)
-            draw.text((565, 350), f"{channel} | {views}", fill="white", font=font)
+            draw.text((565, 350), f"{channel} | {views}", fill="white", font=lemon_font)
             draw.text((10, 10), "Sprotify Music", fill="white", font=title_font)
 
             try:
