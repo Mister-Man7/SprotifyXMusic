@@ -5,40 +5,29 @@ import aiohttp
 from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont
 from youtubesearchpython.__future__ import VideosSearch
 
-# Load font
-font = ImageFont.truetype("SprotifyMusic/assets/font.ttf", 28)
-font_nav = ImageFont.truetype("SprotifyMusic/assets/Montserrat-Medium.ttf", 22)  # Font untuk navigation bar
-font_nav_bold = ImageFont.truetype("SprotifyMusic/assets/Montserrat-Bold.ttf", 22)  # Font untuk navigation bar
-font_bottom = ImageFont.truetype("SprotifyMusic/assets/Montserrat-Medium.ttf", 20)  # Font untuk tulisan bawah
-
+# Ukuran gambar
 width, height = 1080, 720
-
-outline_color = (255, 255, 255, 255)
 
 def changeImageSize(maxWidth, maxHeight, image):
     widthRatio = maxWidth / image.size[0]
     heightRatio = maxHeight / image.size[1]
     newWidth = int(widthRatio * image.size[0])
     newHeight = int(heightRatio * image.size[1])
-    newImage = image.resize((newWidth, newHeight))
-    return newImage
+    return image.resize((newWidth, newHeight))
+
 
 def truncate(text):
     words = text.split(" ")
-    text1 = ""
-    text2 = ""
+    text1, text2 = "", ""
     for word in words:
         if len(text1) + len(word) < 30:
             text1 += " " + word
         elif len(text2) + len(word) < 30:
             text2 += " " + word
+    return [text1.strip(), text2.strip()]
 
-    text1 = text1.strip()
-    text2 = text2.strip()
-    return [text1, text2]
 
-def crop_rounded_rectangle(img, output_size, border, corner_radius, crop_scale=1.5):
-    # pusat potonya
+def crop_center_rounded_rectangle(img, output_size, border, corner_radius, crop_scale=1.5):
     half_width = img.size[0] / 2
     half_height = img.size[1] / 2
     larger_size = int(output_size * crop_scale)
@@ -51,34 +40,17 @@ def crop_rounded_rectangle(img, output_size, border, corner_radius, crop_scale=1
             half_height + larger_size / 2,
         )
     )
-
     img = img.resize((output_size - 2 * border, output_size - 2 * border))
-    img_last = Image.new("L", size=(output_size, output_size), color="white")
 
-    # bikin mask
+    final_img = Image.new("RGBA", (output_size, output_size), (0, 0, 0, 0))
     mask_main = Image.new("L", (output_size - 2 * border, output_size - 2 * border), 0)
     draw_main = ImageDraw.Draw(mask_main)
     draw_main.rounded_rectangle(
-        (0, 0, output_size - 2 * border, output_size - 2 * border),
-        radius=corner_radius,
-        fill=255,
+        (0, 0, output_size - 2 * border, output_size - 2 * border), radius=corner_radius, fill=255
     )
+    final_img.paste(img, (border, border), mask_main)
+    return final_img
 
-    # masukin gambar ke rounded rectangle
-    img_last.paste(
-        img,
-        (border, border),
-        mask_main,
-        )
-    # Membuat border untuk mask
-    mask_border = Image.new("L", (output_size, output_size), 0)
-    draw_border = ImageDraw.Draw(mask_border)
-    draw_border.rounded_rectangle((0, 0, output_size, output_size), radius=corner_radius, fill=255)
-
-    # Membuat gambar akhir dengan border dan mask
-    result = Image.composite(img_last, Image.new("RGBA", img_last.size, (0, 0, 0, 0)), mask_border)
-
-    return result
 
 async def get_thumb(videoid):
     if os.path.isfile(f"cache/{videoid}_v4.png"):
@@ -89,12 +61,8 @@ async def get_thumb(videoid):
 
     try:
         for result in (await results.next())["result"]:
-            try:
-                title = result.get("title", "Unsupported Title")
-                title = re.sub("\W+", " ", title)
-                title = title.title()
-            except:
-                title = "Unsupported Title"
+            title = result.get("title", "Unsupported Title")
+            title = re.sub("\W+", " ", title).title()
 
             duration = result.get("duration", "Unknown Mins")
             views = result.get("viewCount", {}).get("short", "Unknown Views")
@@ -113,60 +81,75 @@ async def get_thumb(videoid):
 
             youtube = Image.open(f"cache/thumb{videoid}.png")
             image1 = changeImageSize(1280, 720, youtube)
-            image2 = image1.convert("RGBA")
-            background = image2.filter(filter=ImageFilter.GaussianBlur(20)).convert("L")
-            draw = ImageDraw.Draw(image2, "RGBA")
+            image2 = image1.convert("L")
+            background = image2.filter(ImageFilter.BoxBlur(20)).convert("RGBA")
             enhancer = ImageEnhance.Brightness(background)
             background = enhancer.enhance(0.6)
-            font = ImageFont.truetype("SprotifyMusic/assets/font.ttf", 30)
-            
-            corner_radius = 50  # Radius sudut rounded rectangle
-            rectangle_thumbnail = crop_rounded_rectangle(youtube, 400, 20, corner_radius)
-            rectangle_thumbnail = rectangle_thumbnail.resize((400, 400))
-            rectangle_position = (120, 160)  # Menempatkan di sebelah kiri
+
+            draw = ImageDraw.Draw(background)
+            font = ImageFont.truetype("SprotifyMusic/assets/Montserrat-Medium.ttf", 20)
+            title_font = ImageFont.truetype("SprotifyMusic/assets/Montserrat-Bold.ttf", 45)
+
+            # Rounded rectangle thumbnail
+            corner_radius = 50
+            rectangle_thumbnail = crop_center_rounded_rectangle(youtube, 400, 20, corner_radius)
+            rectangle_position = (120, 160)
             background.paste(rectangle_thumbnail, rectangle_position, rectangle_thumbnail)
 
-            text_x_position = 565
 
+            # Menghitung ukuran teks menggunakan textbbox
             title1 = truncate(title)
-            draw.text((10, 10), f"Sprotify Music", fill=outline_color, font=font)
+            text_bbox_1 = draw.textbbox((0, 0), title1[0], font=title_font)
+            text_bbox_2 = draw.textbbox((0, 0), title1[1], font=title_font)
 
-            # Membuat rounded rectangle persegi panjang di atas (kanan) tanpa warna fill
-            rect_width, rect_height = 600, 100
-            x1, y1 = width - rect_width - 50, (height // 2) - rect_height - 80
-            x2, y2 = x1 + rect_width, y1 + rect_height
-            draw.rounded_rectangle((x1, y1, x2, y2), radius=20, outline=outline_color, width=3)
-            draw.text((x1 + 20, y1 + 30), f"Title: {title1}", fill="white", font=font)
+            # Mendapatkan ukuran rectangle
+            text_width = max(text_bbox_1[2] - text_bbox_1[0], text_bbox_2[2] - text_bbox_2[0])  # Lebar rectangle = lebar teks terpanjang
+            text_height = (text_bbox_1[3] - text_bbox_1[1]) + (text_bbox_2[3] - text_bbox_2[1]) + 20  # Tinggi rectangle = tinggi kedua baris teks + padding
+            padding = 20  # Jarak tambahan di sekitar teks
+            rectangle_width = text_width + 2 * padding
+            rectangle_height = text_height + 2 * padding
 
-            # Membuat rounded rectangle persegi panjang tengah (kanan) tanpa warna fill
-            y1, y2 = (height // 2) - (rect_height // 2), (height // 2) + (rect_height // 2)
-            draw.rounded_rectangle((x1, y1, x2, y2), radius=20, outline=outline_color, width=3)
-            draw.text((x1 + 20, y1 + 30), f"Channel: {channel}", fill="white", font=font)
+            # Koordinat untuk rectangle
+            rectangle_x = 565  # Posisi X rectangle
+            rectangle_y = 180  # Posisi Y rectangle (dimulai dari baris pertama teks)
+            rectangle_coords = (
+                rectangle_x, 
+                rectangle_y, 
+                rectangle_x + rectangle_width, 
+                rectangle_y + rectangle_height
+            )
 
-            # Membuat rounded rectangle persegi panjang di bawah (kanan) tanpa warna fill
-            y1, y2 = (height // 2) + 80, (height // 2) + 80 + rect_height
-            draw.rounded_rectangle((x1, y1, x2, y2), radius=20, outline=outline_color, width=3)
-            draw.text((x1 + 20, y1 + 30), f"Duration: {duration}", fill="white", font=font)
+            # Gambar rounded rectangle hanya dengan outline
+            rounded_rectangle_radius = 20  # Radius sudut rounded rectangle
+            outline_color = "white"  # Warna outline
+            draw.rounded_rectangle(
+                rectangle_coords, 
+                radius=rounded_rectangle_radius, 
+                outline=outline_color, 
+                width=3  # Ketebalan outline
+            )
 
-            # Menambahkan teks di bagian bawah tengah
-            text = "Made with Luv by EasyWinter"
-            # Menggunakan textbbox untuk mendapatkan ukuran teks
-            text_bbox = draw.textbbox((0, 0), text, font=font_bottom)
-            text_width = text_bbox[2] - text_bbox[0]  # Lebar teks
-            text_height = text_bbox[3] - text_bbox[1]  # Tinggi teks
+            # Menempatkan teks di tengah rectangle
+            text_x = rectangle_x + padding
+            text_y_1 = rectangle_y + padding  # Posisi baris pertama teks
+            text_y_2 = text_y_1 + (text_bbox_1[3] - text_bbox_1[1]) + 10  # Posisi baris kedua teks (dengan jarak 10px)
 
-            # Posisi teks di bagian bawah tengah
-            text_x = (width - text_width) // 2  # Posisi tengah
-            text_y = height - text_height - 20  # Posisi 20px dari bagian bawah
-            draw.text((text_x, text_y), text, fill="white", font=font_bottom)
+            # Text
+            title1 = truncate(title)
+            draw.text((text_x, text_y_1), title1[0], fill="white", font=title_font)
+            draw.text((text_x, text_y_2), title1[1], fill="white", font=title_font)
+            draw.text((565, 350), f"{channel} | {views}", fill="white", font=font)
+            draw.text((10, 10), "Sprotify Music", fill="white", font=title_font)
 
             try:
                 os.remove(f"cache/thumb{videoid}.png")
             except:
                 pass
+
             background.save(f"cache/{videoid}_v4.png")
             return f"cache/{videoid}_v4.png"
 
     except Exception as e:
         print(f"Error in get_thumb: {e}")
         raise
+
