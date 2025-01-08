@@ -1,0 +1,21 @@
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Collecting pip
+  Downloading pip-24.3.1-py3-none-any.whl (1.8 MB)
+Installing collected packages: pip
+  Attempting uninstall: pip
+    Found existing installation: pip 20.0.2
+    Not uninstalling pip at /usr/lib/python3/dist-packages, outside environment /usr
+    Can't uninstall 'pip'. No files were found to uninstall.
+Successfully installed pip-24.3.1
+Collecting git+https://github.com/Mayuri-Chan/pyrofork (from -r requirements.txt (line 54))
+  Cloning https://github.com/Mayuri-Chan/pyrofork to /tmp/pip-req-build-vo6__8bk
+  Running command git clone -q https://github.com/Mayuri-Chan/pyrofork /tmp/pip-req-build-vo6__8bk
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+    Preparing wheel metadata: started
+    Preparing wheel metadata: finished with status 'done'
+ERROR: Package 'pyrofork-2.3.54' requires a different Python: 3.8.10 not in '~=3.9'

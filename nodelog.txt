@@ -1,0 +1,106 @@
+
+================================================================================
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+================================================================================
+
+                           SCRIPT DEPRECATION WARNING                    
+
+  
+  This script, located at https://deb.nodesource.com/setup_X, used to
+  install Node.js is deprecated now and will eventually be made inactive.
+
+  Please visit the NodeSource distributions Github and follow the
+  instructions to migrate your repo.
+  https://github.com/nodesource/distributions
+
+  The NodeSource Node.js Linux distributions GitHub repository contains
+  information about which versions of Node.js and which Linux distributions
+  are supported and how to install it.
+  https://github.com/nodesource/distributions
+
+
+                          SCRIPT DEPRECATION WARNING
+
+================================================================================
+▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+================================================================================
+
+TO AVOID THIS WAIT MIGRATE THE SCRIPT
+Continuing in 60 seconds (press Ctrl-C to abort) ...
+
+
+## Installing the NodeSource Node.js 19.x repo...
+
+
+## Populating apt-get cache...
+
++ apt-get update
+Hit:1 http://mirrors.digitalocean.com/ubuntu focal InRelease
+Hit:2 http://mirrors.digitalocean.com/ubuntu focal-updates InRelease
+Hit:3 http://mirrors.digitalocean.com/ubuntu focal-backports InRelease
+Hit:4 https://repos-droplet.digitalocean.com/apt/droplet-agent main InRelease
+Hit:5 http://security.ubuntu.com/ubuntu focal-security InRelease
+Reading package lists...
+
+## Confirming "focal" is supported...
+
++ curl -sLf -o /dev/null 'https://deb.nodesource.com/node_19.x/dists/focal/Release'
+
+## Adding the NodeSource signing key to your keyring...
+
++ curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor | tee /usr/share/keyrings/nodesource.gpg >/dev/null
+
+## Creating apt sources list file for the NodeSource Node.js 19.x repo...
+
++ echo 'deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_19.x focal main' > /etc/apt/sources.list.d/nodesource.list
++ echo 'deb-src [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_19.x focal main' >> /etc/apt/sources.list.d/nodesource.list
+
+## Running `apt-get update` for you...
+
++ apt-get update
+Hit:1 http://mirrors.digitalocean.com/ubuntu focal InRelease
+Hit:2 http://mirrors.digitalocean.com/ubuntu focal-updates InRelease
+Hit:3 http://mirrors.digitalocean.com/ubuntu focal-backports InRelease
+Hit:4 https://repos-droplet.digitalocean.com/apt/droplet-agent main InRelease
+Hit:5 http://security.ubuntu.com/ubuntu focal-security InRelease
+Get:6 https://deb.nodesource.com/node_19.x focal InRelease [4583 B]
+Get:7 https://deb.nodesource.com/node_19.x focal/main amd64 Packages [773 B]
+Fetched 5356 B in 3s (1897 B/s)
+Reading package lists...
+
+## Run `sudo apt-get install -y nodejs` to install Node.js 19.x and npm
+## You may also need development tools to build native addons:
+     sudo apt-get install gcc g++ make
+## To install the Yarn package manager, run:
+     curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null
+     echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+     sudo apt-get update && sudo apt-get install yarn
+
+
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following NEW packages will be installed:
+  nodejs
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 29.3 MB of archives.
+After this operation, 189 MB of additional disk space will be used.
+Get:1 https://deb.nodesource.com/node_19.x focal/main amd64 nodejs amd64 19.9.0-deb-1nodesource1 [29.3 MB]
+Fetched 29.3 MB in 1s (23.5 MB/s)
+Selecting previously unselected package nodejs.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 102595 files and directories currently installed.)
+Preparing to unpack .../nodejs_19.9.0-deb-1nodesource1_amd64.deb ...
+Unpacking nodejs (19.9.0-deb-1nodesource1) ...
+Setting up nodejs (19.9.0-deb-1nodesource1) ...
+Processing triggers for man-db (2.9.1-1) ...
+npm ERR! code EBADENGINE
+npm ERR! engine Unsupported engine
+npm ERR! engine Not compatible with your version of node/npm: npm@11.0.0
+npm ERR! notsup Not compatible with your version of node/npm: npm@11.0.0
+npm ERR! notsup Required: {"node":"^20.17.0 || >=22.9.0"}
+npm ERR! notsup Actual:   {"npm":"9.6.3","node":"v19.9.0"}
+
+npm ERR! A complete log of this run can be found in: /root/.npm/_logs/2025-01-08T06_22_45_468Z-debug-0.log

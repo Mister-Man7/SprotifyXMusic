@@ -87,9 +87,9 @@ async def get_thumb(videoid):
             background = enhancer.enhance(0.6)
 
             draw = ImageDraw.Draw(background)
-            font = ImageFont.truetype("SprotifyMusic/assets/Montserrat-Medium.ttf", 20)
-            title_font = ImageFont.truetype("SprotifyMusic/assets/Montserrat-Bold.ttf", 40)
-            lemon_font = ImageFont.truetype("SprotifyMusic/assets/Lemon-Regular.ttf", 35)
+            arial = ImageFont.truetype("SprotifyMusic/assets/font2.ttf", 30)
+            font = ImageFont.truetype("SprotifyMusic/assets/font.ttf", 30)
+            title_font = ImageFont.truetype("SprotifyMusic/assets/font3.ttf", 45)
 
             # Rounded rectangle thumbnail
             corner_radius = 50
@@ -97,50 +97,12 @@ async def get_thumb(videoid):
             rectangle_position = (120, 160)
             background.paste(rectangle_thumbnail, rectangle_position, rectangle_thumbnail)
 
-
-            # Menghitung ukuran teks menggunakan textbbox
-            title1 = truncate(title)
-            text_bbox_1 = draw.textbbox((0, 0), title1[0], font=title_font)
-            text_bbox_2 = draw.textbbox((0, 0), title1[1], font=title_font)
-
-            # Mendapatkan ukuran rectangle
-            text_width = max(text_bbox_1[2] - text_bbox_1[0], text_bbox_2[2] - text_bbox_2[0])  # Lebar rectangle = lebar teks terpanjang
-            text_height = (text_bbox_1[3] - text_bbox_1[1]) + (text_bbox_2[3] - text_bbox_2[1]) + 20  # Tinggi rectangle = tinggi kedua baris teks + padding
-            padding = 20  # Jarak tambahan di sekitar teks
-            rectangle_width = text_width + 2 * padding
-            rectangle_height = text_height + 2 * padding
-
-            # Koordinat untuk rectangle
-            rectangle_x = 565  # Posisi X rectangle
-            rectangle_y = 180  # Posisi Y rectangle (dimulai dari baris pertama teks)
-            rectangle_coords = (
-                rectangle_x, 
-                rectangle_y, 
-                rectangle_x + rectangle_width, 
-                rectangle_y + rectangle_height
-            )
-
-            # Gambar rounded rectangle hanya dengan outline
-            rounded_rectangle_radius = 20  # Radius sudut rounded rectangle
-            outline_color = "white"  # Warna outline
-            draw.rounded_rectangle(
-                rectangle_coords, 
-                radius=rounded_rectangle_radius, 
-                outline=outline_color, 
-                width=3  # Ketebalan outline
-            )
-
-            # Menempatkan teks di tengah rectangle
-            text_x = rectangle_x + padding
-            text_y_1 = rectangle_y + padding  # Posisi baris pertama teks
-            text_y_2 = text_y_1 + (text_bbox_1[3] - text_bbox_1[1]) + 10  # Posisi baris kedua teks (dengan jarak 10px)
-
             # Text
             title1 = truncate(title)
-            draw.text((text_x, text_y_1), title1[0], fill="white", font=title_font)
-            draw.text((text_x, text_y_2), title1[1], fill="white", font=title_font)
-            draw.text((565, 350), f"{channel} | {views}", fill="white", font=lemon_font)
-            draw.text((10, 10), "Sprotify Music", fill="white", font=title_font)
+            draw.text((565, 180), title1[0], fill="white", font=title_font)
+            draw.text((565, 230), title1[1], fill="white", font=title_font)
+            draw.text((565, 320), f"{channel} | {views}", fill="white", font=arial)
+            draw.text((10, 10), "Sprotify Music", fill="white", font=font)
 
             try:
                 os.remove(f"cache/thumb{videoid}.png")
