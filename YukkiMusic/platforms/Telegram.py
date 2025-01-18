@@ -159,14 +159,13 @@ class Telegram:
                     completed_size = convert_bytes(current)
                     speed = convert_bytes(speed)
                     text = f"""
-**{app.mention} Telagram Media Downloader**
-
-**Total file size:** {total_size}
-**Completed:** {completed_size} 
-**Percentage:** {percentage[:5]}%
-
-**Speed:** {speed}/s
-**Elapsed Time:** {eta}"""
+<b>{app.mention} Telagram Media Downloader</b>
+<blockquote><b>Total file size:</b></blockquote> {total_size}
+<blockquote><b>Completed:</b></blockquote> {completed_size} 
+<blockquote><b>Percentage:</b></blockquote> {percentage[:5]}%
+<blockquote><b>Speed:</b></blockquote> {speed}/s
+<blockquote><b>Elapsed Time:</b></blockquote> {eta}
+"""
                     try:
                         await mystic.edit_text(text, reply_markup=upl)
                     except Exception:
@@ -185,7 +184,7 @@ class Telegram:
                     progress=progress,
                 )
                 await mystic.edit_text(
-                    "Sucessfully Downloaded\n Processing File Now..."
+                    "<blockquote>Sucessfully Downloaded</blockquote>\nProcessing File Now...",
                 )
                 downloader.pop(message.id, None)
             except Exception:

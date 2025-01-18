@@ -170,16 +170,14 @@ async def start_comm(client, message: Message, _):
                 link = result["link"]
                 published = result["publishedTime"]
             searched_text = f"""
-🔍__**Video track information **__
-
-❇️**Title:** {title}
-
-⏳**Duration:** {duration} Mins
-👀**Views:** `{views}`
-⏰**Published times:** {published}
-🎥**Channel Name:** {channel}
-📎**Channel Link:** [Visit from here]({channellink})
-🔗**Videp linl:** [Link]({link})
+🔍<b>Video track information</b>
+<blockquote><b>❇️Title:</b> {title}
+<b>⏳Duration:</b> {duration} Mins
+<b>👀Views:</b> {views}
+<b>⏰Published times:</b> {published}
+<b>🎥Channel Name:</b> {channel}
+<b>📎Channel Link:</b> <a href="{channellink}">Visit from here</a>
+<b>🔗Video link:</b> <a href="{link}">Link</a></blockquote>
 """
             key = InlineKeyboardMarkup(
                 [
@@ -212,21 +210,22 @@ async def start_comm(client, message: Message, _):
         except Exception:
             OWNER = None
         out = private_panel(_, app.username, OWNER)
+        ijin_tag = message.from_user.mention
         if config.START_IMG_URL:
             try:
                 await message.reply_photo(
                     photo=config.START_IMG_URL,
-                    caption=_["start_1"].format(app.mention),
+                    caption=_["start_1"].format(ijin_tag),
                     reply_markup=InlineKeyboardMarkup(out),
                 )
             except Exception:
                 await message.reply_text(
-                    text=_["start_1"].format(app.mention),
+                    text=_["start_1"].format(ijin_tag),
                     reply_markup=InlineKeyboardMarkup(out),
                 )
         else:
             await message.reply_text(
-                text=_["start_1"].format(app.mention),
+                text=_["start_1"].format(ijin_tag),
                 reply_markup=InlineKeyboardMarkup(out),
             )
         if await is_on_off(config.LOG):

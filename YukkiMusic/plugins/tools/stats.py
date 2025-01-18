@@ -258,18 +258,18 @@ async def overall_stats(client, CallbackQuery, _):
         ass = "No"
     text = f"""**Bot's Stats and information:**
 
-**Imported Modules:** {mod}
+<blockquote>**Imported Modules:** {mod}
 **Served chats:** {served_chats} 
 **Served Users:** {served_users} 
 **Blocked Users:** {blocked} 
-**Sudo Users:** {sudoers} 
+**Sudo Users:** {sudoers}</blockquote>
     
 **Total Queries:** {total_queries} 
 **Total Assistant:** {assistant}
 **Auto Leaving Assistsant:** {ass}
 
-**Play Duration Limit:** {play_duration} ᴍɪɴs
-**Song Download Limit:** {song} ᴍɪɴs
+**Play Duration Limit:** {play_duration} mins
+**Song Download Limit:** {song} mins
 **Bot's Server Playlist Limit:** {playlist_limit}
 **Playlist Play Limit:** {fetch_playlist}"""
     med = InputMediaPhoto(media=config.STATS_IMG_URL, caption=text)

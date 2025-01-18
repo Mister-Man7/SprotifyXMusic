@@ -265,7 +265,7 @@ async def help_button(client, query):
         prev_page_num = int(mod_match.group(2))
         close = bool(int(mod_match.group(3)))
         text = (
-            f"<b><u>Here is the help for {HELPABLE[module].__MODULE__}:</u></b>\n"
+            f"<blockquote><b><u>Here is the help for {HELPABLE[module].__MODULE__}:</u></b></blockquote>\n"
             + HELPABLE[module].__HELP__
         )
         key = InlineKeyboardMarkup(

@@ -30,12 +30,12 @@ async def on_bot_added(_, message):
                     message.chat.username if message.chat.username else "ᴘʀɪᴠᴀᴛᴇ ᴄʜᴀᴛ"
                 )
                 msg = (
-                    f"**Music bot added in new Group #New_Group**\n\n"
-                    f"**Chat Name:** {message.chat.title}\n"
-                    f"**Chat Id:** {message.chat.id}\n"
-                    f"**Chat Username:** @{username}\n"
-                    f"**Chat Member Count:** {count}\n"
-                    f"**Added By:** {message.from_user.mention}"
+                    f"<b>Music bot added in new Group #New_Group</b>"
+                    f"<b><blockquote>Chat Name:</b> {message.chat.title}"
+                    f"<b>Chat Id:</b> {message.chat.id}"
+                    f"<b>Chat Username:</b> @{username}"
+                    f"<b>Chat Member Count:</b> {count}"
+                    f"<b>Added By:</b> {message.from_user.mention}<blockquote>"
                 )
                 await app.send_message(
                     LOG_GROUP_ID,
@@ -50,6 +50,7 @@ async def on_bot_added(_, message):
                             ]
                         ]
                     ),
+                    parse_mode="html",
                 )
                 if message.chat.username:
                     await userbot.join_chat(message.chat.username)
@@ -75,11 +76,11 @@ async def on_bot_kicked(_, message: Message):
             )
             chat_id = message.chat.id
             left = (
-                f"Bot was Removed in {title} #Left_group\n"
-                f"**Chat Name**: {title}\n"
-                f"**Chat Id**: {chat_id}\n"
-                f"**Chat Username**: {username}\n"
-                f"**Removed By**: {remove_by}"
+                f"<b>Bot was Removed in {title} #Left_group</b>"
+                f"<blockquote><b>Chat Name:</b> {title}"
+                f"<b>Chat Id:</b> {chat_id}"
+                f"<b>Chat Username:</b> {username}"
+                f"<b>Removed By:</b> {remove_by}</blockquote>"
             )
 
             await app.send_message(
