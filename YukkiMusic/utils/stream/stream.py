@@ -171,7 +171,7 @@ async def stream(
                 "video" if video else "audio",
             )
             position = len(db.get(chat_id)) - 1
-            qimg = await gen_qthumb(vidid)
+            qimg = await gen_thumb(vidid)
             run = await app.send_photo(
                 original_chat_id,
                 photo=qimg,
