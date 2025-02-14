@@ -96,8 +96,8 @@ async def gen_thumb(videoid):
             background = enhancer.enhance(0.6)
 
             draw = ImageDraw.Draw(background)
-            font = ImageFont.truetype("SprotifyMusic/assets/Montserrat-Medium.ttf", 20)
-            title_font = ImageFont.truetype("SprotifyMusic/assets/Montserrat-Bold.ttf", 45)
+            font = ImageFont.truetype("YukkiMusic/assets/Montserrat-Medium.ttf", 20)
+            title_font = ImageFont.truetype("YukkiMusic/assets/Montserrat-Bold.ttf", 45)
 
             # Rounded rectangle thumbnail
             corner_radius = 50
