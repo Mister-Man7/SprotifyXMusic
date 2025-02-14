@@ -43,7 +43,7 @@ DURATION_LIMIT_MIN = int(
 )  # Remember to give value in Minutes
 
 
-EXTRA_PLUGINS = getenv("EXTRA_PLUGINS", True)
+EXTRA_PLUGINS = getenv("EXTRA_PLUGINS", False)
 
 # Fill False if you Don't want to load extra plugins
 
@@ -80,9 +80,9 @@ HEROKU_APP_NAME = getenv("HEROKU_APP_NAME")
 # For customized or modified Repository
 UPSTREAM_REPO = getenv(
     "UPSTREAM_REPO",
-    "https://github.com/TheTeamVivek/YukkiMusic",
+    "https://github.com/Mister-Man7/SprotifyXMusic",
 )
-UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "master")
+UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "v3")
 
 # GIT TOKEN ( if your edited repo is private)
 GIT_TOKEN = getenv(
