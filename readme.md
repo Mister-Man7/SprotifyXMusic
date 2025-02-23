@@ -1,20 +1,22 @@
-# 🎵 **YukkiMusic** 🎶
+<h1 align="center" id="title">SprotifyXMusic</h1>
 
-[**YukkiMusic**](https://github.com/TheTeamVivek/YukkiMusic) is an enhanced version of the original [**YukkiMusicBot**](https://github.com/TeamYukki/YukkiMusicBot), optimized for high-quality music streaming in Telegram voice chats. Built with Python and Pyrogram. 🚀
+![SprotifyXMusic](https://socialify.git.ci/Mister-Man7/SprotifyXMusic/image?description=1&descriptionEditable=Coolest%20Telegram%20Music%20and%20Video%20Player%20Bot&font=KoHo&forks=1&issues=1&language=1&name=1&owner=1&pattern=Solid&pulls=1&stargazers=1&theme=Auto)
+
+---
+[SprotifyXMusic](https://github.com/Mister-Man7/SprotifyXMusic) is an innovative Telegram bot powered by Python with Pyrogram and Py-Tgcalls. Lets you stream music, videos, and even live broadcasts in group calls from various sources seamlessly.
 
 ## ⭐ Support the Original
 If you're using or forking this project, please show your support by starring the original repo:
 [**YukkiMusicBot**](https://github.com/TeamYukki/YukkiMusicBot)
 
+## 🗒️Pre-requisite
+- [x] [Python](https://www.python.org/) Environment (v3.13 recommended)
+- [x] [Telegram API](https://my.telegram.org) Credentials
+- [x] [Pyrogram](https://docs.pyrogram.org/index) and [Py-Tgcalls](https://tgcalls.org/)
+- [x] [MongoDB](https://www.mongodb.com/) Database
+- [x] VPS
 
 ## 🚀 Quick Deployment Options
-
-### Deploy on Heroku
-Get started quickly by deploying to Heroku with just one click:
-
-<a href="https://dashboard.heroku.com/new?template=https://github.com/TheTeamVivek/YukkiMusic">
-  <img src="https://img.shields.io/badge/Deploy%20To%20Heroku-red?style=for-the-badge&logo=heroku" width="200"/>
-</a>
 
 ### 🖥️ VPS Deployment Guide
 
@@ -24,9 +26,9 @@ Get started quickly by deploying to Heroku with just one click:
 
   - Activate Virtual Env: `source .venv/bin/activate`
 
-  - Clone the Repository: `git clone https://github.com/TheTeamVivek/YukkiMusic && cd YukkiMusic`
+  - Clone the Repository: `git clone -b v3 https://github.com/Mister-Man7/SprotifyXMusic && cd SprotifyXMusic`
 
-  - Install Python Requirements: `pip install -r requirements.txt`
+  - Install Python Requirements: `pip3 install -r requirements.txt`
 
   - Copy and Edit Environment Variables:
 
@@ -54,25 +56,27 @@ Need help setting up? Check out our detailed configuration guide: [**Configurati
 
 We're here to support you through multiple channels:
 
-- [**📝 Open a GitHub Issue**](https://github.com/TheTeamVivek/YukkiMusic/issues/new?assignees=&labels=question&title=support%3A+&body=%23+Support+Question)
+- [**📝 Open a GitHub Issue**](https://github.com/Mister-Man7/SprotifyXMusic/issues)
 
-- [**💬 Contact Us**](https://t.me/TheTeamVk)
+- [**💬 Contact Me**](https://t.me/EasyWinter)
 
-- [**👥 Join Support Group**](https://t.me/TheTeamVk)
+- [**👥 Join Support Group**](https://t.me/SprotifyNews)
 
 
 ## ❣️ Show Your Support
 
 Love YukkiMusic? Here's how you can help:
 
-- ⭐ [**Star the YukkiMusicBot Project**](https://github.com/TeamYukki/YukkiMusicBot).
+- ⭐ [**Star the SprotifyXMusic Project**](https://github.com/Mister-Man7/SprotifyXMusic).
 
-- 🍴 [**Fork and and contribute to the this Repository**](https://github.com/TheTeamVivek/YukkiMusic)
+- 🍴 [**Fork and and contribute to the this Repository**](https://github.com/Mister-Man7/SprotifyXMusic)
 
 - 📢 Share your experience on [**Dev.to**](https://dev.to/), [**Medium**](https://medium.com/), or your **personal blog.**
 
-Together, we can make [**YukkiMusic**](https://github.com/TheTeamVivek/YukkiMusic) and [**YukkiMusicBot**](https://github.com/TeamYukki/YukkiMusicBot) even better!
+Together, we can make [**SprotifyXMusic**](https://github.com/Mister-Man7/SprotifyXMusic) and [**YukkiMusicBot**](https://github.com/TeamYukki/YukkiMusicBot) even better!
 
 ## 🙏 Special Thanks
+- [x] [TeamYukki](https://github.com/TeamYukki)
+- [x] [TeamUltroid](https://github.com/TeamUltroid)
+- [x] [WinxMusic](https://github.com/gabrielmaialva33/winx-music-bot)
 
-A heartfelt thanks to [**Team Yukki**](https://github.com/TeamYukki) for creating the amazing  [**YukkiMusicBot**](https://github.com/TeamYukki/YukkiMusicBot) that inspired this project!
