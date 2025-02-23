@@ -65,7 +65,7 @@ We're here to support you through multiple channels:
 
 ## ❣️ Show Your Support
 
-Love YukkiMusic? Here's how you can help:
+Love SprotifyXMusic? Here's how you can help:
 
 - ⭐ [**Star the SprotifyXMusic Project**](https://github.com/Mister-Man7/SprotifyXMusic).
 
