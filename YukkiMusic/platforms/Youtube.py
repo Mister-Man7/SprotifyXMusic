@@ -7,30 +7,32 @@
 #
 # All rights reserved.
 #
-import os
-import re
-import glob
-import random
 import asyncio
-from typing import Union
+import os
+import random
+import re
 
 from async_lru import alru_cache
-from yt_dlp import YoutubeDL
+from py_yt import VideosSearch
 from pyrogram.enums import MessageEntityType
 from pyrogram.types import Message
-from youtubesearchpython.__future__ import VideosSearch
+from yt_dlp import YoutubeDL
 
 import config
 from YukkiMusic.utils.database import is_on_off
 from YukkiMusic.utils.decorators import asyncify
 from YukkiMusic.utils.formatters import seconds_to_min, time_to_seconds
 
+NOTHING = {"cookies_dead": None}
+
 
 def cookies():
     folder_path = f"{os.getcwd()}/cookies"
     txt_files = [file for file in os.listdir(folder_path) if file.endswith(".txt")]
     if not txt_files:
-        raise FileNotFoundError("No Cookies found in cookies directory make sure your cookies file written  .txt file")
+        raise FileNotFoundError(
+            "No Cookies found in cookies directory make sure your cookies file written  .txt file"
+        )
     cookie_txt_file = random.choice(txt_files)
     cookie_txt_file = os.path.join(folder_path, cookie_txt_file)
     return cookie_txt_file
@@ -60,7 +62,7 @@ class YouTube:
         self.listbase = "https://youtube.com/playlist?list="
         self.reg = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
 
-    async def exists(self, link: str, videoid: Union[bool, str] = None):
+    async def exists(self, link: str, videoid: bool | str = None):
         if videoid:
             link = self.base + link
         if re.search(self.regex, link):
@@ -68,8 +70,17 @@ class YouTube:
         else:
             return False
 
+    @property
+    def use_fallback(self):
+        return NOTHING["cookies_dead"] is True
+
+    @use_fallback.setter
+    def use_fallback(self, value):
+        if NOTHING["cookies_dead"] is None:
+            NOTHING["cookies_dead"] = value
+
     @asyncify
-    def url(self, message_1: Message) -> Union[str, None]:
+    def url(self, message_1: Message) -> str | None:
         messages = [message_1]
         if message_1.reply_to_message:
             messages.append(message_1.reply_to_message)
@@ -94,7 +105,7 @@ class YouTube:
         return text[offset : offset + length]
 
     @alru_cache(maxsize=None)
-    async def details(self, link: str, videoid: Union[bool, str] = None):
+    async def details(self, link: str, videoid: bool | str = None):
         if videoid:
             link = self.base + link
         if "&" in link:
@@ -112,7 +123,7 @@ class YouTube:
         return title, duration_min, duration_sec, thumbnail, vidid
 
     @alru_cache(maxsize=None)
-    async def title(self, link: str, videoid: Union[bool, str] = None):
+    async def title(self, link: str, videoid: bool | str = None):
         if videoid:
             link = self.base + link
         if "&" in link:
@@ -123,7 +134,7 @@ class YouTube:
         return title
 
     @alru_cache(maxsize=None)
-    async def duration(self, link: str, videoid: Union[bool, str] = None):
+    async def duration(self, link: str, videoid: bool | str = None):
         if videoid:
             link = self.base + link
         if "&" in link:
@@ -134,7 +145,7 @@ class YouTube:
         return duration
 
     @alru_cache(maxsize=None)
-    async def thumbnail(self, link: str, videoid: Union[bool, str] = None):
+    async def thumbnail(self, link: str, videoid: bool | str = None):
         if videoid:
             link = self.base + link
         if "&" in link:
@@ -144,7 +155,7 @@ class YouTube:
             thumbnail = result["thumbnails"][0]["url"].split("?")[0]
         return thumbnail
 
-    async def video(self, link: str, videoid: Union[bool, str] = None):
+    async def video(self, link: str, videoid: bool | str = None):
         if videoid:
             link = self.base + link
         if "&" in link:
@@ -170,7 +181,7 @@ class YouTube:
             return 0, stderr.decode()
 
     @alru_cache(maxsize=None)
-    async def playlist(self, link, limit, videoid: Union[bool, str] = None):
+    async def playlist(self, link, limit, videoid: bool | str = None):
         if videoid:
             link = self.listbase + link
         if "&" in link:
@@ -191,7 +202,7 @@ class YouTube:
         return result
 
     @alru_cache(maxsize=None)
-    async def track(self, link: str, videoid: Union[bool, str] = None):
+    async def track(self, link: str, videoid: bool | str = None):
         if videoid:
             link = self.base + link
         if "&" in link:
@@ -244,7 +255,7 @@ class YouTube:
 
     @alru_cache(maxsize=None)
     @asyncify
-    def formats(self, link: str, videoid: Union[bool, str] = None):
+    def formats(self, link: str, videoid: bool | str = None):
         if videoid:
             link = self.base + link
         if "&" in link:
@@ -290,7 +301,7 @@ class YouTube:
         self,
         link: str,
         query_type: int,
-        videoid: Union[bool, str] = None,
+        videoid: bool | str = None,
     ):
         if videoid:
             link = self.base + link
@@ -303,17 +314,17 @@ class YouTube:
         vidid = result[query_type]["id"]
         thumbnail = result[query_type]["thumbnails"][0]["url"].split("?")[0]
         return title, duration_min, thumbnail, vidid
-        
+
     async def download(
         self,
         link: str,
         mystic,
-        video: Union[bool, str] = None,
-        videoid: Union[bool, str] = None,
-        songaudio: Union[bool, str] = None,
-        songvideo: Union[bool, str] = None,
-        format_id: Union[bool, str] = None,
-        title: Union[bool, str] = None,
+        video: bool | str = None,
+        videoid: bool | str = None,
+        songaudio: bool | str = None,
+        songvideo: bool | str = None,
+        format_id: bool | str = None,
+        title: bool | str = None,
     ) -> str:
         if videoid:
             link = self.base + link
@@ -332,13 +343,13 @@ class YouTube:
                 "prefer_ffmpeg": True,
             }
 
-            x = YoutubeDL(ydl_optssx)
-            info = x.extract_info(link, False)
-            xyz = os.path.join("downloads", f"{info['id']}.{info['ext']}")
-            if os.path.exists(xyz):
+            with YoutubeDL(ydl_optssx) as x:
+                info = x.extract_info(link, False)
+                xyz = os.path.join("downloads", f"{info['id']}.{info['ext']}")
+                if os.path.exists(xyz):
+                    return xyz
+                x.download([link])
                 return xyz
-            x.download([link])
-            return xyz
 
         @asyncify
         def video_dl():
@@ -354,13 +365,13 @@ class YouTube:
                 "cookiefile": f"{cookies()}",
             }
 
-            x = YoutubeDL(ydl_optssx)
-            info = x.extract_info(link, False)
-            xyz = os.path.join("downloads", f"{info['id']}.{info['ext']}")
-            if os.path.exists(xyz):
+            with YoutubeDL(ydl_optssx) as x:
+                info = x.extract_info(link, False)
+                xyz = os.path.join("downloads", f"{info['id']}.{info['ext']}")
+                if os.path.exists(xyz):
+                    return xyz
+                x.download([link])
                 return xyz
-            x.download([link])
-            return xyz
 
         @asyncify
         def song_video_dl():
@@ -379,10 +390,10 @@ class YouTube:
                 "cookiefile": f"{cookies()}",
             }
 
-            x = YoutubeDL(ydl_optssx)
-            info = x.extract_info(link)
-            file_path = x.prepare_filename(info)
-            return file_path
+            with YoutubeDL(ydl_optssx) as x:
+                info = x.extract_info(link)
+                file_path = x.prepare_filename(info)
+                return file_path
 
         @asyncify
         def song_audio_dl():
@@ -406,10 +417,10 @@ class YouTube:
                 "cookiefile": f"{cookies()}",
             }
 
-            x = YoutubeDL(ydl_optssx)
-            info = x.extract_info(link)
-            file_path = x.prepare_filename(info)
-            return file_path
+            with YoutubeDL(ydl_optssx) as x:
+                info = x.extract_info(link)
+                file_path = x.prepare_filename(info)
+                return file_path
 
         if songvideo:
             return await song_video_dl()
@@ -450,5 +461,3 @@ class YouTube:
             downloaded_file = await audio_dl()
 
         return downloaded_file, direct
-            
-      
