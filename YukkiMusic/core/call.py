@@ -8,27 +8,35 @@
 # All rights reserved.
 #
 import asyncio
-from typing import Union
 
 from ntgcalls import TelegramServerError
+from pyrogram.errors import (
+    ChannelsTooMuch,
+    ChatAdminRequired,
+    FloodWait,
+    InviteRequestSent,
+    UserAlreadyParticipant,
+)
 from pyrogram.types import InlineKeyboardMarkup
 from pytgcalls import PyTgCalls, filters
-from pytgcalls.exceptions import AlreadyJoinedError
+from pytgcalls.exceptions import NoActiveGroupCall
 from pytgcalls.types import (
     ChatUpdate,
     GroupCallConfig,
     MediaStream,
-    Update,
+    StreamEnded,
 )
-from pytgcalls.types import StreamAudioEnded
 
 import config
 from strings import get_string
 from YukkiMusic import LOGGER, Platform, app, userbot
+from YukkiMusic.core.userbot import assistants
 from YukkiMusic.misc import db
+from YukkiMusic.utils import fallback
 from YukkiMusic.utils.database import (
     add_active_chat,
     add_active_video_chat,
+    get_assistant,
     get_audio_bitrate,
     get_lang,
     get_loop,
@@ -37,27 +45,13 @@ from YukkiMusic.utils.database import (
     music_on,
     remove_active_chat,
     remove_active_video_chat,
+    set_assistant,
     set_loop,
 )
 from YukkiMusic.utils.exceptions import AssistantErr
 from YukkiMusic.utils.inline.play import stream_markup, telegram_markup
 from YukkiMusic.utils.stream.autoclear import auto_clean
 from YukkiMusic.utils.thumbnails import gen_thumb
-
-from pyrogram.errors import (
-    ChannelsTooMuch,
-    ChatAdminRequired,
-    FloodWait,
-    InviteRequestSent,
-    UserAlreadyParticipant,
-)
-
-from YukkiMusic.core.userbot import assistants
-from YukkiMusic.utils.database import (
-    get_assistant,
-    get_lang,
-    set_assistant,
-)
 
 links = {}
 
@@ -85,19 +79,19 @@ class Call:
 
     async def pause_stream(self, chat_id: int):
         assistant = await group_assistant(self, chat_id)
-        await assistant.pause_stream(chat_id)
+        await assistant.pause(chat_id)
 
     async def resume_stream(self, chat_id: int):
         assistant = await group_assistant(self, chat_id)
-        await assistant.resume_stream(chat_id)
+        await assistant.resume(chat_id)
 
     async def mute_stream(self, chat_id: int):
         assistant = await group_assistant(self, chat_id)
-        await assistant.mute_stream(chat_id)
+        await assistant.mute(chat_id)
 
     async def unmute_stream(self, chat_id: int):
         assistant = await group_assistant(self, chat_id)
-        await assistant.unmute_stream(chat_id)
+        await assistant.unmute(chat_id)
 
     async def stop_stream(self, chat_id: int):
         assistant = await group_assistant(self, chat_id)
@@ -125,8 +119,8 @@ class Call:
         self,
         chat_id: int,
         link: str,
-        video: Union[bool, str] = None,
-        image: Union[bool, str] = None,
+        video: bool | str = None,
+        image: bool | str = None,
     ):
         assistant = await group_assistant(self, chat_id)
         audio_stream_quality = await get_audio_bitrate(chat_id)
@@ -266,8 +260,8 @@ class Call:
         chat_id: int,
         original_chat_id: int,
         link,
-        video: Union[bool, str] = None,
-        image: Union[bool, str] = None,
+        video: bool | str = None,
+        image: bool | str = None,
     ):
         assistant = await group_assistant(self, chat_id)
         audio_stream_quality = await get_audio_bitrate(chat_id)
@@ -312,9 +306,9 @@ class Call:
                     "**No Active Voice Chat Found**\n\nPlease make sure group's voice chat is enabled. If already enabled, please end it and start fresh voice chat again and if the problem continues, try /restart"
                 )
 
-        except AlreadyJoinedError:
+        except NoActiveGroupCall:
             raise AssistantErr(
-                "**ASSISTANT IS ALREADY IN VOICECHAT **\n\nMusic bot system detected that assistant is already in the voicechat, if the problem continues restart the videochat and try again."
+                "**No Active Voice Chat Found**\n\nPlease make sure group's voice chat is enabled. If already enabled, please end it and start fresh voice chat again and if the problem continues, try /restart"
             )
         except TelegramServerError:
             raise AssistantErr(
@@ -422,16 +416,32 @@ class Call:
             elif "vid_" in queued:
                 mystic = await app.send_message(original_chat_id, _["call_8"])
                 try:
-                    file_path, direct = await Platform.youtube.download(
-                        videoid,
-                        mystic,
-                        videoid=True,
-                        video=True if str(streamtype) == "video" else False,
-                    )
+                    if Platform.youtube.use_fallback:
+                        file_path, status = await fallback.download(
+                            title[:20],
+                            video=(True if str(streamtype) == "video" else False),
+                        )
+                        direct = None
+                    else:
+                        try:
+                            file_path, direct = await Platform.youtube.download(
+                                videoid,
+                                mystic,
+                                videoid=True,
+                                video=(True if str(streamtype) == "video" else False),
+                            )
+                        except Exception:
+                            Platform.youtube.use_fallback = True
+                            file_path, status = await fallback.download(
+                                title[:20],
+                                video=(True if str(streamtype) == "video" else False),
+                            )
+                            direct = None
                 except Exception:
                     return await mystic.edit_text(
                         _["call_7"], disable_web_page_preview=True
                     )
+
                 if video:
                     stream = MediaStream(
                         file_path,
@@ -627,23 +637,29 @@ class Call:
         for call in self.calls:
 
             @call.on_update(filters.chat_update(ChatUpdate.Status.LEFT_CALL))
-            async def stream_services_handler(client, update):
+            async def stream_services_handler(client, update: ChatUpdate):
                 await self.stop_stream(update.chat_id)
 
-            @call.on_update(filters.stream_end)
-            async def stream_end_handler(client, update: Update):
-                if not isinstance(update, StreamAudioEnded):
+            @call.on_update(filters.stream_end())
+            async def stream_end_handler(client, update: StreamEnded):
+                if update.stream_type not in [
+                    StreamEnded.Type.AUDIO,
+                    StreamEnded.Type.VIDEO,
+                ]:
                     return
                 await self.change_stream(client, update.chat_id)
 
-
     def __getattr__(self, name):
         if not self.calls:
-            raise AttributeError(f"'{type(self).__name__}' object has no attribute '{name}'")
+            raise AttributeError(
+                f"'{type(self).__name__}' object has no attribute '{name}'"
+            )
         first_call = self.calls[0]
         if hasattr(first_call, name):
             return getattr(first_call, name)
-        raise AttributeError(f"'{type(first_call).__name__}' object has no attribute '{name}'")
+        raise AttributeError(
+            f"'{type(first_call).__name__}' object has no attribute '{name}'"
+        )
 
 
 Yukki = Call()
