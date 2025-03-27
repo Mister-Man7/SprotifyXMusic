@@ -12,7 +12,6 @@ import asyncio
 import os
 import time
 from datetime import datetime, timedelta
-from typing import Union
 
 import aiohttp
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Voice
@@ -45,11 +44,11 @@ class Telegram:
         if message.chat.username:
             link = f"https://t.me/{message.chat.username}/{message.reply_to_message.id}"
         else:
-            xf = str((message.chat.id))[4:]
+            xf = str(message.chat.id)[4:]
             link = f"https://t.me/c/{xf}/{message.reply_to_message.id}"
         return link
 
-    async def get_filename(self, file, audio: Union[bool, str] = None):
+    async def get_filename(self, file, audio: bool | str = None):
         try:
             file_name = file.file_name
             if file_name is None:
@@ -67,8 +66,8 @@ class Telegram:
 
     async def get_filepath(
         self,
-        audio: Union[bool, str] = None,
-        video: Union[bool, str] = None,
+        audio: bool | str = None,
+        video: bool | str = None,
     ):
         if audio:
             try:
@@ -159,13 +158,14 @@ class Telegram:
                     completed_size = convert_bytes(current)
                     speed = convert_bytes(speed)
                     text = f"""
-<b>{app.mention} Telagram Media Downloader</b>
-<blockquote><b>Total file size:</b></blockquote> {total_size}
-<blockquote><b>Completed:</b></blockquote> {completed_size} 
-<blockquote><b>Percentage:</b></blockquote> {percentage[:5]}%
-<blockquote><b>Speed:</b></blockquote> {speed}/s
-<blockquote><b>Elapsed Time:</b></blockquote> {eta}
-"""
+**{app.mention} Telagram Media Downloader**
+
+**Total file size:** {total_size}
+**Completed:** {completed_size} 
+**Percentage:** {percentage[:5]}%
+
+**Speed:** {speed}/s
+**Elapsed Time:** {eta}"""
                     try:
                         await mystic.edit_text(text, reply_markup=upl)
                     except Exception:
@@ -184,7 +184,7 @@ class Telegram:
                     progress=progress,
                 )
                 await mystic.edit_text(
-                    "<blockquote>Sucessfully Downloaded</blockquote>\nProcessing File Now...",
+                    "Sucessfully Downloaded\n Processing File Now..."
                 )
                 downloader.pop(message.id, None)
             except Exception:
