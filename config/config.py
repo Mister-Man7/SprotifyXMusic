@@ -119,7 +119,7 @@ YOUTUBE_DOWNLOAD_EDIT_SLEEP = int(getenv("YOUTUBE_EDIT_SLEEP", "3"))
 # Time sleep duration For Telegram Downloader
 TELEGRAM_DOWNLOAD_EDIT_SLEEP = int(getenv("TELEGRAM_EDIT_SLEEP", "5"))
 
-GLBAL_IMG_URL = "https://graph.org/file/c9266ed41c1a9b8121185.jpg"
+GLOBAL_IMG_URL = "https://graph.org/file/c9266ed41c1a9b8121185.jpg"
 
 # Your Github Repo.. Will be shown on /start Command
 GITHUB_REPO = getenv("GITHUB_REPO", "https://github.com/Estanislao/SprotifyMusic")
