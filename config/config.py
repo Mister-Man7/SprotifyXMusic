@@ -194,70 +194,21 @@ autoclean = []
 # Images
 
 START_IMG_URL = getenv(
-    "START_IMG_URL",
-    "https://te.legra.ph/file/4ec5ae4381dffb039b4ef.jpg",  # This is the file id of the photo you can also put the url of photo
+    "START_IMG_URL", "https://graph.org/file/afe0bf9e6b4fede3afc0e.jpg"
 )
-
 PING_IMG_URL = getenv(
-    "PING_IMG_URL",
-    "https://telegra.ph/file/91533956c91d0fd7c9f20.jpg",
+    "PING_IMG_URL", "https://graph.org/file/8f6de108a54be6506b693.jpg"
 )
-
-PLAYLIST_IMG_URL = getenv(
-    "PLAYLIST_IMG_URL",
-    "https://envs.sh/W_z.jpg",
-)
-
-GLOBAL_IMG_URL = getenv(
-    "GLOBAL_IMG_URL",
-    "https://telegra.ph/file/de1db74efac1770b1e8e9.jpg",
-)
-
-STATS_IMG_URL = getenv(
-    "STATS_IMG_URL",
-    "https://telegra.ph/file/4dd9e2c231eaf7c290404.jpg",
-)
-
-TELEGRAM_AUDIO_URL = getenv(
-    "TELEGRAM_AUDIO_URL",
-    "https://envs.sh/npk.jpg",
-)
-
-TELEGRAM_VIDEO_URL = getenv(
-    "TELEGRAM_VIDEO_URL",
-    "https://telegra.ph/file/8d02ff3bde400e465219a.jpg",
-)
-
-STREAM_IMG_URL = getenv(
-    "STREAM_IMG_URL",
-    "https://envs.sh/nAw.jpg",
-)
-
-SOUNCLOUD_IMG_URL = getenv(
-    "SOUNCLOUD_IMG_URL",
-    "https://envs.sh/nAD.jpg",
-)
-
-YOUTUBE_IMG_URL = getenv(
-    "YOUTUBE_IMG_URL",
-    "https://envs.sh/npl.jpg",
-)
-
-SPOTIFY_ARTIST_IMG_URL = getenv(
-    "SPOTIFY_ARTIST_IMG_URL",
-    "https://envs.sh/nA9.jpg",
-)
-
-SPOTIFY_ALBUM_IMG_URL = getenv(
-    "SPOTIFY_ALBUM_IMG_URL",
-    "https://envs.sh/nps.jpg",
-)
-
-SPOTIFY_PLAYLIST_IMG_URL = getenv(
-    "SPOTIFY_PLAYLIST_IMG_URL",
-    "https://telegra.ph/file/f4edfbd83ec3150284aae.jpg",
-)
-
+PLAYLIST_IMG_URL = "https://graph.org/file/94074fd8f348807833802.jpg"
+STATS_IMG_URL = "https://graph.org/file/c9266ed41c1a9b8121185.jpg"
+TELEGRAM_AUDIO_URL = "https://graph.org/file/f626eb194b025672eea28.jpg"
+TELEGRAM_VIDEO_URL = "https://graph.org/file/f6e977e0046a5b8d17904.jpg"
+STREAM_IMG_URL = "https://graph.org/file/7247dcb0ae280ba3b8492.jpg"
+SOUNCLOUD_IMG_URL = "https://graph.org/file/199a1bd803d3e8c8d0e43.jpg"
+YOUTUBE_IMG_URL = "https://graph.org/file/d902a638d7bcb6653d36f.jpg"
+SPOTIFY_ARTIST_IMG_URL = "https://graph.org/file/dc9eb455f86f845f400f8.jpg"
+SPOTIFY_ALBUM_IMG_URL = "https://graph.org/file/aacfa8762c016077b7ee9.jpg"
+SPOTIFY_PLAYLIST_IMG_URL = "https://graph.org/file/480dbdc265670e833d763.jpg"
 
 def time_to_seconds(time):
     stringt = str(time)
