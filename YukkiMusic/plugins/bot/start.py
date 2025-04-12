@@ -10,10 +10,10 @@
 import asyncio
 import time
 
+from py_yt import VideosSearch
 from pyrogram import filters
 from pyrogram.enums import ChatType, ParseMode
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
-from youtubesearchpython.__future__ import VideosSearch
 
 import config
 from config import BANNED_USERS, START_IMG_URL
@@ -21,6 +21,7 @@ from config.config import OWNER_ID
 from strings import command, get_string
 from YukkiMusic import Platform, app
 from YukkiMusic.misc import SUDOERS, _boot_
+from YukkiMusic.plugins.bot.help import paginate_modules
 from YukkiMusic.plugins.play.playlist import del_plist_msg
 from YukkiMusic.plugins.sudo.sudoers import sudoers_list
 from YukkiMusic.utils.database import (
@@ -37,8 +38,6 @@ from YukkiMusic.utils.decorators.language import LanguageStart
 from YukkiMusic.utils.formatters import get_readable_time
 from YukkiMusic.utils.functions import MARKDOWN, WELCOMEHELP
 from YukkiMusic.utils.inline import private_panel, start_pannel
-
-from YukkiMusic.plugins.bot.help import paginate_modules
 
 loop = asyncio.get_running_loop()
 
@@ -170,14 +169,16 @@ async def start_comm(client, message: Message, _):
                 link = result["link"]
                 published = result["publishedTime"]
             searched_text = f"""
-🔍<b>Video track information</b>
-<blockquote><b>❇️Title:</b> {title}
-<b>⏳Duration:</b> {duration} Mins
-<b>👀Views:</b> {views}
-<b>⏰Published times:</b> {published}
-<b>🎥Channel Name:</b> {channel}
-<b>📎Channel Link:</b> <a href="{channellink}">Visit from here</a>
-<b>🔗Video link:</b> <a href="{link}">Link</a></blockquote>
+🔍__**Video track information **__
+
+❇️**Title:** {title}
+
+⏳**Duration:** {duration} Mins
+👀**Views:** `{views}`
+⏰**Published times:** {published}
+🎥**Channel Name:** {channel}
+📎**Channel Link:** [Visit from here]({channellink})
+🔗**Videp linl:** [Link]({link})
 """
             key = InlineKeyboardMarkup(
                 [
@@ -210,22 +211,21 @@ async def start_comm(client, message: Message, _):
         except Exception:
             OWNER = None
         out = private_panel(_, app.username, OWNER)
-        ijin_tag = message.from_user.mention
         if config.START_IMG_URL:
             try:
                 await message.reply_photo(
                     photo=config.START_IMG_URL,
-                    caption=_["start_1"].format(ijin_tag),
+                    caption=_["start_1"].format(app.mention),
                     reply_markup=InlineKeyboardMarkup(out),
                 )
             except Exception:
                 await message.reply_text(
-                    text=_["start_1"].format(ijin_tag),
+                    text=_["start_1"].format(app.mention),
                     reply_markup=InlineKeyboardMarkup(out),
                 )
         else:
             await message.reply_text(
-                text=_["start_1"].format(ijin_tag),
+                text=_["start_1"].format(app.mention),
                 reply_markup=InlineKeyboardMarkup(out),
             )
         if await is_on_off(config.LOG):
@@ -250,7 +250,7 @@ async def testbot(client, message: Message, _):
 @app.on_message(filters.new_chat_members, group=-1)
 async def welcome(client, message: Message):
     chat_id = message.chat.id
-    if config.PRIVATE_BOT_MODE == str(True):
+    if config.PRIVATE_BOT_MODE:
         if not await is_served_private_chat(message.chat.id):
             await message.reply_text(
                 "This Bot's private mode has been enabled only my owner can use this if want to use in your chat so say my Owner to authorize your chat."

@@ -252,24 +252,24 @@ async def overall_stats(client, CallbackQuery, _):
     fetch_playlist = config.PLAYLIST_FETCH_LIMIT
     song = config.SONG_DOWNLOAD_DURATION
     play_duration = config.DURATION_LIMIT_MIN
-    if config.AUTO_LEAVING_ASSISTANT == str(True):
+    if config.AUTO_LEAVING_ASSISTANT:
         ass = "Yes"
     else:
         ass = "No"
     text = f"""**Bot's Stats and information:**
 
-<blockquote>**Imported Modules:** {mod}
+**Imported Modules:** {mod}
 **Served chats:** {served_chats} 
 **Served Users:** {served_users} 
 **Blocked Users:** {blocked} 
-**Sudo Users:** {sudoers}</blockquote>
+**Sudo Users:** {sudoers} 
     
 **Total Queries:** {total_queries} 
 **Total Assistant:** {assistant}
 **Auto Leaving Assistsant:** {ass}
 
-**Play Duration Limit:** {play_duration} mins
-**Song Download Limit:** {song} mins
+**Play Duration Limit:** {play_duration} ᴍɪɴs
+**Song Download Limit:** {song} ᴍɪɴs
 **Bot's Server Playlist Limit:** {playlist_limit}
 **Playlist Play Limit:** {fetch_playlist}"""
     med = InputMediaPhoto(media=config.STATS_IMG_URL, caption=text)

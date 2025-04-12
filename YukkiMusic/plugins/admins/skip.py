@@ -18,6 +18,7 @@ from strings import command
 from YukkiMusic import Platform, app
 from YukkiMusic.core.call import Yukki
 from YukkiMusic.misc import db
+from YukkiMusic.utils import fallback
 from YukkiMusic.utils.database import get_loop
 from YukkiMusic.utils.decorators import AdminRightsCheck
 from YukkiMusic.utils.inline.play import stream_markup, telegram_markup
@@ -133,27 +134,46 @@ async def skip(cli, message: Message, _, chat_id):
         db[chat_id][0]["mystic"] = run
         db[chat_id][0]["markup"] = "tg"
     elif "vid_" in queued:
+        flink = f"https://t.me/{app.username}?start=info_{videoid}",   
+        thumbnail = None
         mystic = await message.reply_text(_["call_8"], disable_web_page_preview=True)
         try:
-            file_path, direct = await Platform.youtube.download(
-                videoid,
-                mystic,
-                videoid=True,
-                video=status,
-            )
+            if Platform.youtube.use_fallback:
+                file_path, _data, status = await fallback.download(title[:12], video=status)
+                direct = None
+                title = _data.get("title", title)
+                thumbnail = _data.get("thumb")
+                flink = _data.get("url", flink)
+                duration_min = _data.get("duration_min", duration_min)
+            else:
+                try:
+                    file_path, direct = await Platform.youtube.download(
+                        vidid, mystic, videoid=True, video=status
+                    )
+                except Exception:
+                    Platform.youtube.use_fallback = True
+                    file_path, _data, status = await fallback.download(
+                        title[:12], video=status
+                    )
+                    direct = None
+                    title = _data.get("title", title)
+                    thumbnail = _data.get("thumb")
+                    flink = _data.get("url", flink)
+                    duration_min = _data.get("duration_min", duration_min)
         except Exception:
             return await mystic.edit_text(_["call_7"])
         try:
             await Yukki.skip_stream(chat_id, file_path, video=status)
         except Exception:
             return await mystic.edit_text(_["call_7"])
+        check[0]["dur"] = duration_min
         button = stream_markup(_, videoid, chat_id)
-        img = await gen_thumb(videoid)
+        img = await gen_thumb(videoid, thumbnail)
         run = await message.reply_photo(
             photo=img,
             caption=_["stream_1"].format(
                 title[:27],
-                f"https://t.me/{app.username}?start=info_{videoid}",
+                flink,
                 duration_min,
                 user,
             ),

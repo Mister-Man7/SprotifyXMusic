@@ -8,12 +8,10 @@
 # All rights reserved.
 #
 
+from pyrogram.errors import ChannelPrivate
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from pyrogram.errors import ChannelPrivate
-
-from config import PLAYLIST_IMG_URL, PRIVATE_BOT_MODE
-from config import adminlist
+from config import PLAYLIST_IMG_URL, PRIVATE_BOT_MODE, adminlist
 from strings import get_string
 from YukkiMusic import Platform, app
 from YukkiMusic.core.call import Yukki
@@ -55,7 +53,7 @@ def PlayWrapper(command):
             if message.from_user.id not in SUDOERS:
                 return
 
-        if PRIVATE_BOT_MODE == str(True):
+        if PRIVATE_BOT_MODE:
             if not await is_served_private_chat(message.chat.id):
                 await message.reply_text(
                     "**PRIVATE MUSIC BOT**\n\nOnly For Authorized chats from the owner ask my owner to allow your chat first."
@@ -146,7 +144,7 @@ def PlayWrapper(command):
                 if not call_participants_id or userbot.id not in call_participants_id:
                     await Yukki.stop_stream(chat_id)
             except ChannelPrivate:
-                pass 
+                pass
 
         return await command(
             client,

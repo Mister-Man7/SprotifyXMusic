@@ -12,7 +12,7 @@ from pyrogram import filters
 from pyrogram.types import Message
 
 from config import BANNED_USERS, adminlist
-from strings import command, command
+from strings import command
 from YukkiMusic import app
 from YukkiMusic.utils.database import (
     delete_authuser,
@@ -140,7 +140,7 @@ async def authusers(client, message: Message, _):
                 j += 1
             except Exception:
                 continue
-            text += f"<blockquote>{j} | {user}[`{user_id}`]</blockquote>\n"
+            text += f"{j}➤ {user}[`{user_id}`]\n"
             text += f"   {_['auth_8']} {admin_name}[`{admin_id}`]\n\n"
         await mystic.delete()
-        await message.reply_text(text, parse_mode="html")
+        await message.reply_text(text)

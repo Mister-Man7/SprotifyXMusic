@@ -8,16 +8,15 @@
 # All rights reserved.
 #
 
-import re
 import logging
+import re
 from math import ceil
-from typing import Union
 
 from pyrogram import filters, types
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 from config import BANNED_USERS, START_IMG_URL
-from strings import get_string, command, helpers, get_command
+from strings import command, get_command, get_string, helpers
 from YukkiMusic import HELPABLE, app
 from YukkiMusic.utils.database import get_lang, is_commanddelete_on
 from YukkiMusic.utils.decorators.language import LanguageStart
@@ -175,7 +174,7 @@ async def paginate_modules(page_n, chat_id: int, close: bool = False):
         ),
         EqInlineKeyboardButton(
             "❯",
-            callback_data="help_next({},{})".format(modulo_page + 1, int(close)),
+            callback_data=f"help_next({modulo_page + 1},{int(close)})",
         ),
     ]
 
@@ -198,9 +197,7 @@ async def paginate_modules(page_n, chat_id: int, close: bool = False):
 
 @app.on_message(command("HELP_COMMAND") & filters.private & ~BANNED_USERS)
 @app.on_callback_query(filters.regex("settings_back_helper") & ~BANNED_USERS)
-async def helper_private(
-    client: app, update: Union[types.Message, types.CallbackQuery]
-):
+async def helper_private(client: app, update: types.Message | types.CallbackQuery):
     is_callback = isinstance(update, types.CallbackQuery)
     if is_callback:
         try:
@@ -265,7 +262,7 @@ async def help_button(client, query):
         prev_page_num = int(mod_match.group(2))
         close = bool(int(mod_match.group(3)))
         text = (
-            f"<blockquote><b><u>Here is the help for {HELPABLE[module].__MODULE__}:</u></b></blockquote>\n"
+            f"<b><u>Here is the help for {HELPABLE[module].__MODULE__}:</u></b>\n"
             + HELPABLE[module].__HELP__
         )
         key = InlineKeyboardMarkup(

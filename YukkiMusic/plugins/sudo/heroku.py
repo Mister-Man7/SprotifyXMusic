@@ -21,8 +21,8 @@ import urllib3
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError
 from pyrogram import filters
-from pyrogram.types import Message
 from pyrogram.enums import ChatType
+from pyrogram.types import Message
 
 import config
 from config import BANNED_USERS
@@ -278,7 +278,7 @@ async def update_(client, message, _):
             try:
                 await app.send_message(
                     chat_id=int(x),
-                    text="{0} Is upadted herself\n\nYou can start playing after 15-20 Seconds".format(
+                    text="{} Is upadted herself\n\nYou can start playing after 15-20 Seconds".format(
                         app.mention
                     ),
                 )
@@ -306,7 +306,7 @@ async def update_(client, message, _):
             )
             return await app.send_message(
                 chat_id=config.LOGGER_ID,
-                text="An exception occurred #updater due to : <code>{0}</code>".format(
+                text="An exception occurred #updater due to : <code>{}</code>".format(
                     err
                 ),
             )

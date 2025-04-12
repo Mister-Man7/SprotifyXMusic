@@ -8,12 +8,12 @@
 # All rights reserved.
 #
 
+from py_yt import VideosSearch
 from pyrogram.types import (
     InlineKeyboardButton,
     InlineKeyboardMarkup,
     InlineQueryResultPhoto,
 )
-from youtubesearchpython.__future__ import VideosSearch
 
 from config import BANNED_USERS
 from YukkiMusic import app
@@ -53,16 +53,17 @@ async def inline_query_handler(client, query):
                 ]
             )
             searched_text = f"""
-<blockquote>❇️<b>Title:</b> <a href="{link}">{title}</a></blockquote>
-<blockquote>⏳<b>Duration:</b> {duration} Mins</blockquote>
-<blockquote>👀<b>Views:</b> <code>{views}</code></blockquote>
-<blockquote>⏰<b>Published:</b> {published}</blockquote>
-<blockquote>🎥<b>Channel:</b> {channel}</blockquote>
-<blockquote>📎<b>Source Link:</b> <a href="{channellink}">Visit</a></blockquote>
+❇️**ᴛɪᴛʟᴇ:** [{title}]({link})
 
-<i>Reply with /ply on this searched message to stream it on Voice Chat.</i>
+⏳**ᴅᴜʀᴀᴛɪᴏɴ:** {duration} Mins
+👀**ᴠɪᴇᴡs:** `{views}`
+⏰**ᴘᴜʙʟɪsʜᴇᴅ ᴛɪᴍᴇ:** {published}
+🎥**ᴄʜᴀɴɴᴇʟ ɴᴀᴍᴇ:** {channel}
+📎**ᴄʜᴀɴɴᴇʟ ʟɪɴᴋ:** [ᴠɪsɪᴛ ғʀᴏᴍ ʜᴇʀᴇ]({channellink})
 
-<blockquote>⚡️ Powered by {app.mention}<blockquote>"""
+__ʀᴇᴘʟʏ ᴡɪᴛʜ /play ᴏɴ ᴛʜɪs sᴇᴀʀᴄʜᴇᴅ ᴍᴇssᴀɢᴇ ᴛᴏ sᴛʀᴇᴀᴍ ɪᴛ ᴏɴ ᴠᴏɪᴄᴇᴄʜᴀᴛ.__
+
+⚡️ ** ɪɴʟɪɴᴇ sᴇᴀʀᴄʜ ʙʏ {app.mention} **"""
             answers.append(
                 InlineQueryResultPhoto(
                     photo_url=thumbnail,

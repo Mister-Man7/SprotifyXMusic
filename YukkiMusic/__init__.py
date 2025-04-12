@@ -7,6 +7,7 @@
 #
 # All rights reserved.
 
+import config
 from YukkiMusic.core.bot import YukkiBot
 from YukkiMusic.core.dir import dirr
 from YukkiMusic.core.git import git
@@ -14,7 +15,6 @@ from YukkiMusic.core.userbot import Userbot
 from YukkiMusic.misc import dbb, heroku, sudo
 
 from .logging import LOGGER
-import config
 
 # Pyrogram Client
 
@@ -29,14 +29,6 @@ app = YukkiBot(
 )
 
 userbot = Userbot()
-
-for i, session in enumerate(config.STRING_SESSIONS, start=1):
-    userbot.add(
-        f"YukkiString{i}",
-        api_id=config.API_ID,
-        api_hash=config.API_HASH,
-        session_string=session.strip(),
-    )
 
 # Directories
 dirr()

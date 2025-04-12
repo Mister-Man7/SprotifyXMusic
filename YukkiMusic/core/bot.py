@@ -12,16 +12,24 @@ import uvloop
 uvloop.install()
 
 import asyncio
-
-import os
 import importlib.util
-
+import os
 import traceback
 from datetime import datetime
 from functools import wraps
 
+#import pyromod.listen #noqa
 from pyrogram import Client, StopPropagation, errors
 from pyrogram.enums import ChatMemberStatus
+from pyrogram.errors import (
+    ChatSendMediaForbidden,
+    ChatSendPhotosForbidden,
+    ChatWriteForbidden,
+    FloodWait,
+    MessageIdInvalid,
+    MessageNotModified,
+)
+from pyrogram.handlers import MessageHandler
 from pyrogram.types import (
     BotCommand,
     BotCommandScopeAllChatAdministrators,
@@ -30,24 +38,16 @@ from pyrogram.types import (
     BotCommandScopeChat,
     BotCommandScopeChatMember,
 )
-from pyrogram.errors import (
-    FloodWait,
-    MessageNotModified,
-    MessageIdInvalid,
-    ChatSendMediaForbidden,
-    ChatSendPhotosForbidden,
-    ChatWriteForbidden,
-)
-from pyrogram.handlers import MessageHandler
 
 import config
 
 from ..logging import LOGGER
 
+
 class YukkiBot(Client):
     def __init__(self, *args, **kwargs):
         LOGGER(__name__).info("Starting Bot...")
-        
+
         super().__init__(*args, **kwargs)
         self.loaded_plug_counts = 0
 
@@ -58,7 +58,9 @@ class YukkiBot(Client):
                 try:
                     await func(client, message)
                 except FloodWait as e:
-                    LOGGER(__name__).warning(f"FloodWait: Sleeping for {e.value} seconds.")
+                    LOGGER(__name__).warning(
+                        f"FloodWait: Sleeping for {e.value} seconds."
+                    )
                     await asyncio.sleep(e.value)
                 except (
                     ChatWriteForbidden,
@@ -74,21 +76,21 @@ class YukkiBot(Client):
                     date_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                     user_id = message.from_user.id if message.from_user else "Unknown"
                     chat_id = message.chat.id if message.chat else "Unknown"
-                    chat_username = f"@{message.chat.username}" if message.chat.username else "Private Group"
-                    command = (
-                        " ".join(message.command)
-                        if hasattr(message, "command")
-                        else message.text
+                    chat_username = (
+                        f"@{message.chat.username}"
+                        if message.chat.username
+                        else "Private Group"
                     )
+                    command = message.text
                     error_trace = traceback.format_exc()
                     error_message = (
-                        f"**Error:** {type(e).__name__}\n"
-                        f"**Date:** {date_time}\n"
-                        f"**Chat ID:** {chat_id}\n"
-                        f"**Chat Username:** {chat_username}\n"
-                        f"**User ID:** {user_id}\n"
-                        f"**Command/Text:** {command}\n"
-                        f"**Traceback:**\n{error_trace}"
+                        f"<b>Error:</b> {type(e).__name__}\n"
+                        f"<b>Date:</b> {date_time}\n"
+                        f"<b>Chat ID:</b> {chat_id}\n"
+                        f"<b>Chat Username:</b> {chat_username}\n"
+                        f"<b>User ID:</b> {user_id}\n"
+                        f"<b>Command/Text:</b>\n<pre language='python'><code>{command}</code></pre>\n\n"
+                        f"<b>Traceback:</b>\n<pre language='python'><code>{error_trace}</code></pre>"
                     )
                     await self.send_message(config.LOG_GROUP_ID, error_message)
                     try:
@@ -107,17 +109,17 @@ class YukkiBot(Client):
         get_me = await self.get_me()
         self.username = get_me.username
         self.id = get_me.id
-        self.name = f"{get_me.first_name} {get_me.last_name or ''}"
+        self.name = get_me.full_name
         self.mention = get_me.mention
 
         try:
             await self.send_message(
                 config.LOG_GROUP_ID,
                 text=(
-                    f"<blockquote><b>{self.mention} Bot Started :</b></blockquote>\n"
-                    f"<b>User ID:</b> <code>{self.id}</code>\n"
-                    f"<b>Name:</b> {self.name}\n"
-                    f"<b>Username:</b> @{self.username}"
+                    f"<u><b>{self.mention} Bot Started :</b></u>\n\n"
+                    f"Id : <code>{self.id}</code>\n"
+                    f"Name : {self.name}\n"
+                    f"Username : @{self.username}"
                 ),
             )
         except (errors.ChannelInvalid, errors.PeerIdInvalid):
@@ -126,7 +128,7 @@ class YukkiBot(Client):
             )
             LOGGER(__name__).error("Error details:", exc_info=True)
             exit()
-        if config.SET_CMDS == str(True):
+        if config.SET_CMDS:
             try:
                 await self._set_default_commands()
             except Exception as e:
@@ -210,11 +212,12 @@ class YukkiBot(Client):
                     ),
                 )
                 await self.set_bot_commands(
-                    private_commands + owner_commands, scope=BotCommandScopeChat(chat_id=owner_id)
+                    private_commands + owner_commands,
+                    scope=BotCommandScopeChat(chat_id=owner_id),
                 )
             except Exception:
                 pass
-                
+
     def load_plugin(self, file_path: str, base_dir: str, utils=None):
         file_name = os.path.basename(file_path)
         module_name, ext = os.path.splitext(file_name)
@@ -228,6 +231,7 @@ class YukkiBot(Client):
         module = importlib.util.module_from_spec(spec)
         module.logger = LOGGER(module_path)
         module.app = self
+        module.Config = config
 
         if utils:
             module.utils = utils
@@ -236,7 +240,9 @@ class YukkiBot(Client):
             spec.loader.exec_module(module)
             self.loaded_plug_counts += 1
         except Exception as e:
-            LOGGER(__name__).error(f"Failed to load {module_path}: {e}\n\n", exc_info=True)
+            LOGGER(__name__).error(
+                f"Failed to load {module_path}: {e}\n\n", exc_info=True
+            )
             exit()
 
         return module
@@ -252,7 +258,9 @@ class YukkiBot(Client):
                 utils = importlib.util.module_from_spec(spec)
                 spec.loader.exec_module(utils)
             except Exception as e:
-                LOGGER(__name__).error(f"Failed to load 'utils' module: {e}", exc_info = True)
+                LOGGER(__name__).error(
+                    f"Failed to load 'utils' module: {e}", exc_info=True
+                )
 
         for root, _, files in os.walk(base_dir):
             for file in files:

@@ -22,7 +22,11 @@ from pyrogram.types import (
     Message,
 )
 
-from config import BANNED_USERS, SONG_DOWNLOAD_DURATION, SONG_DOWNLOAD_DURATION_LIMIT
+from config import (
+    BANNED_USERS,
+    SONG_DOWNLOAD_DURATION,
+    SONG_DOWNLOAD_DURATION_LIMIT,
+)
 from strings import command
 from YukkiMusic import Platform, app
 from YukkiMusic.platforms.Youtube import cookies
@@ -316,7 +320,7 @@ async def song_download_cb(client, CallbackQuery, _):
 
     title = (x["title"]).title()
 
-    title = re.sub("\W+", " ", title)
+    title = re.sub(r"\W+", " ", title)
 
     thumb_image_path = await CallbackQuery.message.download()
 

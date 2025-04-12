@@ -10,12 +10,13 @@ import re
 import sys
 from os import getenv
 
-
 from dotenv import load_dotenv
 from pyrogram import filters
 
 load_dotenv()
 
+def is_true(value: str) -> bool:
+    return str(value).lower() in ["true", "yes"]
 
 # Get it from my.telegram.org
 
@@ -33,7 +34,7 @@ MONGO_DB_URI = getenv("MONGO_DB_URI", None)
 
 CLEANMODE_DELETE_MINS = int(
     getenv("CLEANMODE_MINS", "5")
-)  # Remember to give value in Seconds
+)  # Remember to give value in Minute
 
 
 # Custom max audio(music) duration for voice chat. set DURATION_LIMIT in variables with your own time(mins), Default to 60 mins.
@@ -43,7 +44,7 @@ DURATION_LIMIT_MIN = int(
 )  # Remember to give value in Minutes
 
 
-EXTRA_PLUGINS = getenv("EXTRA_PLUGINS", False)
+EXTRA_PLUGINS = is_true(getenv("EXTRA_PLUGINS", "False"))
 
 # Fill False if you Don't want to load extra plugins
 
@@ -61,13 +62,12 @@ SONG_DOWNLOAD_DURATION = int(
 )  # Remember to give value in Minutes
 
 
-# You'll need a Private Group ID for this.
-LOG_GROUP_ID = int(getenv("LOG_GROUP_ID", ""))
-
+# You'll need a Group ID or USERNAME for this.
+LOG_GROUP_ID = getenv("LOG_GROUP_ID", "").strip()
 
 # Your User ID.
 OWNER_ID = list(
-    map(int, getenv("OWNER_ID", "1854441420").split())
+    map(int, getenv("OWNER_ID", "6815918609").split())
 )  # Input type must be interger
 
 # Get it from http://dashboard.heroku.com/account
@@ -80,9 +80,9 @@ HEROKU_APP_NAME = getenv("HEROKU_APP_NAME")
 # For customized or modified Repository
 UPSTREAM_REPO = getenv(
     "UPSTREAM_REPO",
-    "https://github.com/Mister-Man7/SprotifyXMusic",
+    "https://github.com/TheTeamVivek/YukkiMusic",
 )
-UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "v3")
+UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "master")
 
 # GIT TOKEN ( if your edited repo is private)
 GIT_TOKEN = getenv(
@@ -93,15 +93,15 @@ GIT_TOKEN = getenv(
 
 # Only  Links formats are  accepted for this Var value.
 SUPPORT_CHANNEL = getenv(
-    "SUPPORT_CHANNEL", "https://t.me/SprotifyNews"
+    "SUPPORT_CHANNEL", "https://t.me/TheTeamVivek"
 )  # Example:- https://t.me/TheTeamVivek
 SUPPORT_GROUP = getenv(
-    "SUPPORT_GROUP", "https://t.me/estropolis"
+    "SUPPORT_GROUP", "https://t.me/TheTeamVk"
 )  # Example:- https://t.me/TheTeamVk
 
 
 # Set it in True if you want to leave your assistant after a certain amount of time. [Set time via AUTO_LEAVE_ASSISTANT_TIME]
-AUTO_LEAVING_ASSISTANT = getenv("AUTO_LEAVING_ASSISTANT", False)
+AUTO_LEAVING_ASSISTANT = is_true(getenv("AUTO_LEAVING_ASSISTANT", "False"))
 
 # Time after which you're assistant account will leave chats automatically.
 AUTO_LEAVE_ASSISTANT_TIME = int(
@@ -110,7 +110,7 @@ AUTO_LEAVE_ASSISTANT_TIME = int(
 
 
 # Set it true if you want your bot to be private only [You'll need to allow CHAT_ID via /authorize command then only your bot will play music in that chat.]
-PRIVATE_BOT_MODE = getenv("PRIVATE_BOT_MODE", "False")
+PRIVATE_BOT_MODE = is_true(getenv("PRIVATE_BOT_MODE", "False"))
 
 
 # Time sleep duration For Youtube Downloader
@@ -157,7 +157,7 @@ TG_VIDEO_FILESIZE_LIMIT = int(
 
 # If you want your bot to setup the commands automatically in the bot's menu set it to true.
 # Refer to https://i.postimg.cc/Bbg3LQTG/image.png
-SET_CMDS = getenv("SET_CMDS", "False")
+SET_CMDS = is_true(getenv("SET_CMDS", "False"))
 
 
 # You'll need a Pyrogram String Session for these vars. Generate String from our session generator bot @YukkiStringBot
@@ -195,67 +195,67 @@ autoclean = []
 
 START_IMG_URL = getenv(
     "START_IMG_URL",
-    "https://graph.org/file/afe0bf9e6b4fede3afc0e.jpg",  # This is the file id of the photo you can also put the url of photo
+    "https://te.legra.ph/file/4ec5ae4381dffb039b4ef.jpg",  # This is the file id of the photo you can also put the url of photo
 )
 
 PING_IMG_URL = getenv(
     "PING_IMG_URL",
-    "https://graph.org/file/8f6de108a54be6506b693.jpg",
+    "https://telegra.ph/file/91533956c91d0fd7c9f20.jpg",
 )
 
 PLAYLIST_IMG_URL = getenv(
     "PLAYLIST_IMG_URL",
-    "https://graph.org/file/94074fd8f348807833802.jpg",
+    "https://envs.sh/W_z.jpg",
 )
 
 GLOBAL_IMG_URL = getenv(
     "GLOBAL_IMG_URL",
-    "https://graph.org/file/c9266ed41c1a9b8121185.jpg",
+    "https://telegra.ph/file/de1db74efac1770b1e8e9.jpg",
 )
 
 STATS_IMG_URL = getenv(
     "STATS_IMG_URL",
-    "https://graph.org/file/c9266ed41c1a9b8121185.jpg",
+    "https://telegra.ph/file/4dd9e2c231eaf7c290404.jpg",
 )
 
 TELEGRAM_AUDIO_URL = getenv(
     "TELEGRAM_AUDIO_URL",
-    "https://graph.org/file/f626eb194b025672eea28.jpg",
+    "https://envs.sh/npk.jpg",
 )
 
 TELEGRAM_VIDEO_URL = getenv(
     "TELEGRAM_VIDEO_URL",
-    "https://graph.org/file/f6e977e0046a5b8d17904.jpg",
+    "https://telegra.ph/file/8d02ff3bde400e465219a.jpg",
 )
 
 STREAM_IMG_URL = getenv(
     "STREAM_IMG_URL",
-    "https://graph.org/file/7247dcb0ae280ba3b8492.jpg",
+    "https://envs.sh/nAw.jpg",
 )
 
 SOUNCLOUD_IMG_URL = getenv(
     "SOUNCLOUD_IMG_URL",
-    "https://graph.org/file/199a1bd803d3e8c8d0e43.jpg",
+    "https://envs.sh/nAD.jpg",
 )
 
 YOUTUBE_IMG_URL = getenv(
     "YOUTUBE_IMG_URL",
-    "https://graph.org/file/d902a638d7bcb6653d36f.jpg",
+    "https://envs.sh/npl.jpg",
 )
 
 SPOTIFY_ARTIST_IMG_URL = getenv(
     "SPOTIFY_ARTIST_IMG_URL",
-    "https://graph.org/file/dc9eb455f86f845f400f8.jpg",
+    "https://envs.sh/nA9.jpg",
 )
 
 SPOTIFY_ALBUM_IMG_URL = getenv(
     "SPOTIFY_ALBUM_IMG_URL",
-    "https://graph.org/file/aacfa8762c016077b7ee9.jpg",
+    "https://envs.sh/nps.jpg",
 )
 
 SPOTIFY_PLAYLIST_IMG_URL = getenv(
     "SPOTIFY_PLAYLIST_IMG_URL",
-    "https://graph.org/file/480dbdc265670e833d763.jpg",
+    "https://telegra.ph/file/f4edfbd83ec3150284aae.jpg",
 )
 
 
@@ -272,6 +272,10 @@ def seconds_to_time(seconds):
 
 DURATION_LIMIT = int(time_to_seconds(f"{DURATION_LIMIT_MIN}:00"))
 SONG_DOWNLOAD_DURATION_LIMIT = int(time_to_seconds(f"{SONG_DOWNLOAD_DURATION}:00"))
+
+# Check if LOG_GROUP_ID is a numeric ID
+if LOG_GROUP_ID.lstrip("-").isdigit():
+    LOG_GROUP_ID = int(LOG_GROUP_ID)
 
 if SUPPORT_CHANNEL:
     if not re.match("(?:http|https)://", SUPPORT_CHANNEL):

@@ -12,12 +12,10 @@
 # Credit goes to TheHamkerCat.
 #
 
-import os
-import re
-import sys
 import asyncio
+import contextlib
+import os
 import traceback
-from inspect import getfullargspec
 from io import StringIO
 from time import time
 
@@ -27,35 +25,19 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from YukkiMusic import app
 from YukkiMusic.misc import SUDOERS
 
-## -------- end of required imports to run this script
-
-## ------ Below are some optional Imports you can remove it if is imported  you don't need to import it when using eval command
-
-from pyrogram.raw.functions import *
-from pyrogram.raw.types import *
-
-from YukkiMusic import userbot
-from YukkiMusic.core.call import Yukki
-
-## end
-
 
 async def aexec(code, client, message):
-    local_vars = {}
+    local_vars = {
+        "__builtins__": __builtins__,  # DON'T REMOVE THIS
+        "app": app,
+    }
     exec(
         "async def __aexec(client, message): "
         + "".join(f"\n {a}" for a in code.split("\n")),
-        globals(),
         local_vars,
     )
     __aexec_func = local_vars["__aexec"]
     return await __aexec_func(client, message)
-
-
-async def edit_or_reply(msg: Message, **kwargs):
-    func = msg.edit_text if msg.from_user.is_self else msg.reply
-    spec = getfullargspec(func.__wrapped__).args
-    await func(**{k: v for k, v in kwargs.items() if k in spec})
 
 
 @app.on_edited_message(
@@ -66,25 +48,23 @@ async def edit_or_reply(msg: Message, **kwargs):
 )
 async def executor(client: app, message: Message):
     if len(message.command) < 2:
-        return await edit_or_reply(message, text="<b>Give me something to exceute</b>")
+        return await message.reply(text="<b>Give me something to exceute</b>")
     try:
         cmd = message.text.split(" ", maxsplit=1)[1]
     except IndexError:
         return await message.delete()
     t1 = time()
-    old_stderr = sys.stderr
-    old_stdout = sys.stdout
-    redirected_output = sys.stdout = StringIO()
-    redirected_error = sys.stderr = StringIO()
+    redirected_output = redirected_error = StringIO()
     stdout, stderr, exc = None, None, None
-    try:
-        await aexec(cmd, client, message)
-    except Exception:
-        exc = traceback.format_exc()
+    with contextlib.redirect_stdout(redirected_output), contextlib.redirect_stderr(
+        redirected_error
+    ):
+        try:
+            await aexec(cmd, client, message)
+        except Exception:
+            exc = traceback.format_exc()
     stdout = redirected_output.getvalue()
     stderr = redirected_error.getvalue()
-    sys.stdout = old_stdout
-    sys.stderr = old_stderr
     evaluation = "\n"
     if exc:
         evaluation += exc
@@ -134,7 +114,7 @@ async def executor(client: app, message: Message):
                 ]
             ]
         )
-        await edit_or_reply(message, text=final_output, reply_markup=keyboard)
+        await message.reply(text=final_output, reply_markup=keyboard)
 
 
 @app.on_callback_query(filters.regex(r"runtime"))
@@ -168,9 +148,7 @@ async def forceclose_command(_, CallbackQuery):
 @app.on_message(filters.command("sh") & SUDOERS & ~filters.forwarded & ~filters.via_bot)
 async def shellrunner(_, message: Message):
     if len(message.command) < 2:
-        return await edit_or_reply(
-            message, text="<b>Give some commands like:</b>\n/sh git pull"
-        )
+        return await message.reply("<b>Give some commands like:</b>\n/sh git pull")
 
     text = message.text.split(None, 1)[1]
     output = ""
@@ -185,13 +163,7 @@ async def shellrunner(_, message: Message):
             stdout, stderr = await process.communicate()
             return stdout.decode().strip(), stderr.decode().strip()
         except Exception as err:
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            errors = traceback.format_exception(
-                etype=exc_type,
-                value=exc_obj,
-                tb=exc_tb,
-            )
-            return None, ''.join(errors)
+            return None, traceback.format_exc()
 
     if "\n" in text:
         commands = text.split("\n")
@@ -223,6 +195,6 @@ async def shellrunner(_, message: Message):
         )
         os.remove("output.txt")
     else:
-        await edit_or_reply(message, text=output)
+        await message.reply(text=output)
 
     await message.stop_propagation()

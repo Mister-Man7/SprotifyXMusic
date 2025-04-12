@@ -13,7 +13,11 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 from config import LOG, LOG_GROUP_ID
 from YukkiMusic import app
-from YukkiMusic.utils.database import delete_served_chat, get_assistant, is_on_off
+from YukkiMusic.utils.database import (
+    delete_served_chat,
+    get_assistant,
+    is_on_off,
+)
 
 
 @app.on_message(filters.new_chat_members)
@@ -30,12 +34,12 @@ async def on_bot_added(_, message):
                     message.chat.username if message.chat.username else "ᴘʀɪᴠᴀᴛᴇ ᴄʜᴀᴛ"
                 )
                 msg = (
-                    f"<b>Music bot added in new Group #New_Group</b>"
-                    f"<b><blockquote>Chat Name:</b> {message.chat.title}"
-                    f"<b>Chat Id:</b> {message.chat.id}"
-                    f"<b>Chat Username:</b> @{username}"
-                    f"<b>Chat Member Count:</b> {count}"
-                    f"<b>Added By:</b> {message.from_user.mention}<blockquote>"
+                    f"**Music bot added in new Group #New_Group**\n\n"
+                    f"**Chat Name:** {message.chat.title}\n"
+                    f"**Chat Id:** {message.chat.id}\n"
+                    f"**Chat Username:** @{username}\n"
+                    f"**Chat Member Count:** {count}\n"
+                    f"**Added By:** {message.from_user.mention}"
                 )
                 await app.send_message(
                     LOG_GROUP_ID,
@@ -50,7 +54,6 @@ async def on_bot_added(_, message):
                             ]
                         ]
                     ),
-                    parse_mode="html",
                 )
                 if message.chat.username:
                     await userbot.join_chat(message.chat.username)
@@ -76,11 +79,11 @@ async def on_bot_kicked(_, message: Message):
             )
             chat_id = message.chat.id
             left = (
-                f"<b>Bot was Removed in {title} #Left_group</b>"
-                f"<blockquote><b>Chat Name:</b> {title}"
-                f"<b>Chat Id:</b> {chat_id}"
-                f"<b>Chat Username:</b> {username}"
-                f"<b>Removed By:</b> {remove_by}</blockquote>"
+                f"Bot was Removed in {title} #Left_group\n"
+                f"**Chat Name**: {title}\n"
+                f"**Chat Id**: {chat_id}\n"
+                f"**Chat Username**: {username}\n"
+                f"**Removed By**: {remove_by}"
             )
 
             await app.send_message(
