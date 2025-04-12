@@ -250,7 +250,7 @@ async def update_(client, message, _):
     for checks in repo.iter_commits(f"HEAD..origin/{config.UPSTREAM_BRANCH}"):
         verification = str(checks.count())
     if verification == "":
-        return await response.edit("Bot is up to date")
+        return await response.edit("Bot is up-to-date")
     ordinal = lambda format: "%d%s" % (
         format,
         "tsnrhtdd"[(format // 10 % 10 != 1) * (format % 10 < 4) * format % 10 :: 4],
@@ -259,13 +259,13 @@ async def update_(client, message, _):
         f"<b>➣ #{info.count()}: <a href={REPO_}/commit/{info}>{info.summary}</a> By -> {info.author}</b>\n\t\t\t\t<b>➥ Commited On:</b> {ordinal(int(datetime.fromtimestamp(info.committed_date).strftime('%d')))} {datetime.fromtimestamp(info.committed_date).strftime('%b')}, {datetime.fromtimestamp(info.committed_date).strftime('%Y')}\n\n"
         for info in repo.iter_commits(f"HEAD..origin/{config.UPSTREAM_BRANCH}")
     )
-    _update_response_ = "**A new upadte is available for the Bot! **\n\n➣ Pushing upadtes Now\n\n__**Updates:**__\n"
+    _update_response_ = "**A new update is available for the Bot! **\n\n➣ Pushing Updates Now\n\n__**Updates:**__\n"
     _final_updates_ = f"{_update_response_} {updates}"
 
     if len(_final_updates_) > 4096:
         url = await Yukkibin(updates)
         nrs = await response.edit(
-            f"**A new upadte is available for the Bot!**\n\n➣ Pushing upadtes Now\n\n__**Updates:**__\n\n[Check Upadtes]({url})",
+            f"**A new update is available for the Bot!**\n\n➣ Pushing Updates Now\n\n__**Updates:**__\n\n[Check Upadtes]({url})",
             disable_web_page_preview=True,
         )
     else:
@@ -278,7 +278,7 @@ async def update_(client, message, _):
             try:
                 await app.send_message(
                     chat_id=int(x),
-                    text="{} Is upadted herself\n\nYou can start playing after 15-20 Seconds".format(
+                    text="{} Is updated herself\n\nYou can start playing after 15-20 Seconds".format(
                         app.mention
                     ),
                 )
@@ -288,7 +288,7 @@ async def update_(client, message, _):
                 pass
         await response.edit(
             _final_updates_
-            + f"» Bot Upadted Sucessfully Now wait until the bot starts",
+            + f"» Bot Updated Sucessfully Now wait until the bot starts",
             disable_web_page_preview=True,
         )
     except Exception:
